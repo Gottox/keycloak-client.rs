@@ -1,0 +1,18 @@
+[package]
+name = "codegen"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cargo_toml = "0.21.0"
+case_style = "0.2.1"
+clap = { version = "4.5.31", features = ["derive"] }
+prettyplease = "0.2.29"
+proc-macro2 = "1.0.93"
+quote = "1.0.38"
+reqwest = { version = "0.12.12", features = ["blocking"] }
+schemars = "0.8.22"
+serde_json = "1.0.139"
+serde_toml = "0.0.1"
+syn = "2.0.98"
+typify = "0.3.0"
