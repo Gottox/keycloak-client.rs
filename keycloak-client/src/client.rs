@@ -204,7 +204,19 @@ impl ApiClient {
         Err(Error::ResponseError(status, error_msg))
     }
 
-    pub async fn delete<I: Serialize>(
+    pub async fn delete(&self, path: &str) -> Result<()> {
+        self.delete_inner::<()>(path, None).await
+    }
+
+    pub async fn delete_with_payload<I: Serialize>(
+        &self,
+        path: &str,
+        payload: I,
+    ) -> Result<()> {
+        self.delete_inner(path, Some(payload)).await
+    }
+
+    async fn delete_inner<I: Serialize>(
         &self,
         path: &str,
         payload: Option<I>,
