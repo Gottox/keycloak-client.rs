@@ -204,8 +204,18 @@ impl ApiClient {
         Err(Error::ResponseError(status, error_msg))
     }
 
-    pub async fn delete(&self, path: &str) -> Result<()> {
-        let res = self.request_builder(Method::DELETE, path).send().await?;
+    pub async fn delete<I: Serialize>(
+        &self,
+        path: &str,
+        payload: Option<I>,
+    ) -> Result<()> {
+        let req = self.request_builder(Method::DELETE, path);
+        let req = if let Some(payload) = payload {
+            req.json(&payload)
+        } else {
+            req
+        };
+        let res = req.send().await?;
         self.handle_response(res).await?;
         Ok(())
     }
