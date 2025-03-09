@@ -252,16 +252,35 @@ impl ApiClient {
         Ok(())
     }
 
-    pub async fn post_location<I: Serialize>(
+    async fn inner_post<I: Serialize>(
         &self,
         path: &str,
         payload: I,
-    ) -> Result<String> {
+    ) -> Result<reqwest::Response> {
         let res = self
             .request_builder(Method::POST, path)
             .json(&payload)
             .send()
             .await?;
+
+        Ok(self.handle_response(res).await?)
+    }
+
+    pub async fn post<I: Serialize>(
+        &self,
+        path: &str,
+        payload: I,
+    ) -> Result<()> {
+        self.inner_post(path, payload).await?;
+        Ok(())
+    }
+
+    pub async fn post_location<I: Serialize>(
+        &self,
+        path: &str,
+        payload: I,
+    ) -> Result<String> {
+        let res = self.inner_post(path, payload).await?;
 
         let location = res
             .headers()
@@ -270,7 +289,6 @@ impl ApiClient {
             .ok_or(Error::NoLocationHeader)?;
 
         let base_url = Url::from_str(&self.auth.url)?;
-        self.handle_response(res).await?;
         let resource_url = Url::parse(location.to_str()?)?;
         Ok(resource_url
             .path()
