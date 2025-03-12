@@ -97,13 +97,11 @@ pub mod error {
 ///    "type": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AbstractPolicyRepresentation {
     #[serde(
         rename = "decisionStrategy",
@@ -195,13 +193,11 @@ impl ::std::default::Default for AbstractPolicyRepresentation {
 ///    "verify_caller": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct Access {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub roles: ::std::option::Option<Vec<::std::string::String>>,
@@ -385,13 +381,11 @@ impl ::std::default::Default for Access {
 ///    "zoneinfo": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AccessToken {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub acr: ::std::option::Option<::std::string::String>,
@@ -549,95 +543,6 @@ impl ::std::default::Default for AccessToken {
         }
     }
 }
-///Max time before an access token is expired. This value is recommended to be short relative to the SSO timeout.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Access Token Lifespan",
-///  "description": "Max time before an access token is expired. This value is recommended to be short relative to the SSO timeout.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct AccessTokenLifespan(::std::string::String);
-impl ::std::ops::Deref for AccessTokenLifespan {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<AccessTokenLifespan> for ::std::string::String {
-    fn from(value: AccessTokenLifespan) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&AccessTokenLifespan> for AccessTokenLifespan {
-    fn from(value: &AccessTokenLifespan) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for AccessTokenLifespan {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for AccessTokenLifespan {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for AccessTokenLifespan {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for AccessTokenLifespan {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for AccessTokenLifespan {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
 ///AddressClaimSet
 ///
 /// <details><summary>JSON schema</summary>
@@ -664,13 +569,11 @@ impl<'de> ::serde::Deserialize<'de> for AccessTokenLifespan {
 ///    "street_address": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AddressClaimSet {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub country: ::std::option::Option<::std::string::String>,
@@ -743,13 +646,11 @@ impl ::std::default::Default for AddressClaimSet {
 ///      "maximum": 9.223372036854776e18,
 ///      "minimum": -9.223372036854776e18
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AdminEventRepresentation {
     #[serde(
         rename = "authDetails",
@@ -814,273 +715,6 @@ impl ::std::default::Default for AdminEventRepresentation {
             resource_type: Default::default(),
             time: Default::default(),
         }
-    }
-}
-///Allow the external identity provider to create a new identifier to represent the principal.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Allow create",
-///  "description": "Allow the external identity provider to create a new identifier to represent the principal.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum AllowCreate {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for AllowCreate {
-    fn from(value: &AllowCreate) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for AllowCreate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for AllowCreate {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for AllowCreate {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for AllowCreate {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for AllowCreate {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///If OFF, then the Subject DN from given client certificate must exactly match the given DN from the 'Subject DN' property as described in the RFC8705 specification. The Subject DN can be in the RFC4514 or RFC1779 format. If ON, then the Subject DN from given client certificate should match regex specified by 'Subject DN' property.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Allow regex pattern comparison",
-///  "description": "If OFF, then the Subject DN from given client certificate must exactly match the given DN from the 'Subject DN' property as described in the RFC8705 specification. The Subject DN can be in the RFC4514 or RFC1779 format. If ON, then the Subject DN from given client certificate should match regex specified by 'Subject DN' property.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum AllowRegexPatternComparison {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for AllowRegexPatternComparison {
-    fn from(value: &AllowRegexPatternComparison) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for AllowRegexPatternComparison {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for AllowRegexPatternComparison {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for AllowRegexPatternComparison {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for AllowRegexPatternComparison {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for AllowRegexPatternComparison {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Clock skew in seconds that is tolerated when validating identity provider tokens. Default value is zero.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Allowed clock skew",
-///  "description": "Clock skew in seconds that is tolerated when validating identity provider tokens. Default value is zero.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct AllowedClockSkew(::std::string::String);
-impl ::std::ops::Deref for AllowedClockSkew {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<AllowedClockSkew> for ::std::string::String {
-    fn from(value: AllowedClockSkew) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&AllowedClockSkew> for AllowedClockSkew {
-    fn from(value: &AllowedClockSkew) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for AllowedClockSkew {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for AllowedClockSkew {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for AllowedClockSkew {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for AllowedClockSkew {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for AllowedClockSkew {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
     }
 }
 ///ApplicationRepresentation
@@ -1270,13 +904,11 @@ impl<'de> ::serde::Deserialize<'de> for AllowedClockSkew {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ApplicationRepresentation {
     #[serde(
         default,
@@ -1672,96 +1304,6 @@ impl ::std::convert::TryFrom<::std::string::String> for AttestationConveyancePre
         value.parse()
     }
 }
-///Index of the Attribute Consuming Service profile to request during authentication.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Attribute Consuming Service Index",
-///  "description": "Index of the Attribute Consuming Service profile to request during authentication.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct AttributeConsumingServiceIndex(::std::string::String);
-impl ::std::ops::Deref for AttributeConsumingServiceIndex {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<AttributeConsumingServiceIndex> for ::std::string::String {
-    fn from(value: AttributeConsumingServiceIndex) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&AttributeConsumingServiceIndex>
-for AttributeConsumingServiceIndex {
-    fn from(value: &AttributeConsumingServiceIndex) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for AttributeConsumingServiceIndex {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for AttributeConsumingServiceIndex {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for AttributeConsumingServiceIndex {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for AttributeConsumingServiceIndex {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for AttributeConsumingServiceIndex {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
 ///AuthDetailsRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -1782,13 +1324,11 @@ impl<'de> ::serde::Deserialize<'de> for AttributeConsumingServiceIndex {
 ///    "userId": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthDetailsRepresentation {
     #[serde(
         rename = "clientId",
@@ -1959,13 +1499,11 @@ impl ::std::convert::TryFrom<::std::string::String> for Authentication {
 ///    "userSetupAllowed": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthenticationExecutionExportRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub authenticator: ::std::option::Option<::std::string::String>,
@@ -2184,13 +1722,11 @@ for AuthenticationExecutionExportRepresentationRequirement {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthenticationExecutionInfoRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub alias: ::std::option::Option<::std::string::String>,
@@ -2309,13 +1845,11 @@ impl ::std::default::Default for AuthenticationExecutionInfoRepresentation {
 ///    "requirement": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthenticationExecutionRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub authenticator: ::std::option::Option<::std::string::String>,
@@ -2377,51 +1911,6 @@ impl ::std::default::Default for AuthenticationExecutionRepresentation {
         }
     }
 }
-///AuthenticationFlowOverrides
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Authentication flow overrides",
-///  "type": "object",
-///  "properties": {
-///    "browser": {
-///      "title": "Browser Flow",
-///      "description": "Select the flow you want to use for browser authentication.",
-///      "type": "string"
-///    },
-///    "direct_grant": {
-///      "title": "Direct Grant Flow",
-///      "description": "Select the flow you want to use for direct grant authentication.",
-///      "type": "string"
-///    }
-///  },
-///  "additionalProperties": {
-///    "type": "string"
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-pub struct AuthenticationFlowOverrides {
-    ///Select the flow you want to use for browser authentication.
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub browser: ::std::option::Option<::std::string::String>,
-    ///Select the flow you want to use for direct grant authentication.
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub direct_grant: ::std::option::Option<::std::string::String>,
-    #[serde(flatten)]
-    pub extra: ::std::collections::BTreeMap<
-        ::std::string::String,
-        ::std::string::String,
-    >,
-}
-impl ::std::convert::From<&AuthenticationFlowOverrides> for AuthenticationFlowOverrides {
-    fn from(value: &AuthenticationFlowOverrides) -> Self {
-        value.clone()
-    }
-}
 ///AuthenticationFlowRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -2454,13 +1943,11 @@ impl ::std::convert::From<&AuthenticationFlowOverrides> for AuthenticationFlowOv
 ///    "topLevel": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthenticationFlowRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub alias: ::std::option::Option<::std::string::String>,
@@ -2512,86 +1999,6 @@ impl ::std::default::Default for AuthenticationFlowRepresentation {
             provider_id: Default::default(),
             top_level: Default::default(),
         }
-    }
-}
-///The way of identifying the end-user for whom authentication is being requested. Currently only "login_hint" is supported.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Authentication Requested User Hint",
-///  "description": "The way of identifying the end-user for whom authentication is being requested. Currently only \"login_hint\" is supported.",
-///  "type": "string",
-///  "enum": [
-///    "login_hint"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum AuthenticationRequestedUserHint {
-    #[serde(rename = "login_hint")]
-    LoginHint,
-}
-impl ::std::convert::From<&Self> for AuthenticationRequestedUserHint {
-    fn from(value: &AuthenticationRequestedUserHint) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for AuthenticationRequestedUserHint {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::LoginHint => write!(f, "login_hint"),
-        }
-    }
-}
-impl ::std::str::FromStr for AuthenticationRequestedUserHint {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "login_hint" => Ok(Self::LoginHint),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for AuthenticationRequestedUserHint {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for AuthenticationRequestedUserHint {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for AuthenticationRequestedUserHint {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///Communicates to an authenticator an acceptable attachment pattern.
@@ -2706,13 +2113,11 @@ impl ::std::convert::TryFrom<::std::string::String> for AuthenticatorAttachment 
 ///    "providerId": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthenticatorConfigInfoRepresentation {
     #[serde(
         rename = "helpText",
@@ -2767,13 +2172,11 @@ impl ::std::default::Default for AuthenticatorConfigInfoRepresentation {
 ///    "id": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthenticatorConfigRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub alias: ::std::option::Option<::std::string::String>,
@@ -2817,13 +2220,11 @@ impl ::std::default::Default for AuthenticatorConfigRepresentation {
 ///        "$ref": "#/$defs/Permission"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct Authorization {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub permissions: ::std::vec::Vec<Permission>,
@@ -2854,13 +2255,11 @@ impl ::std::default::Default for Authorization {
 ///        "$ref": "#/$defs/ResourceType"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct AuthorizationSchema {
     #[serde(
         rename = "resourceTypes",
@@ -2882,179 +2281,6 @@ impl ::std::default::Default for AuthorizationSchema {
         Self {
             resource_types: Default::default(),
         }
-    }
-}
-///Does the external IDP support backchannel logout?
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Backchannel logout",
-///  "description": "Does the external IDP support backchannel logout?",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum BackchannelLogout {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for BackchannelLogout {
-    fn from(value: &BackchannelLogout) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for BackchannelLogout {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for BackchannelLogout {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for BackchannelLogout {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for BackchannelLogout {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for BackchannelLogout {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Specifies how the CD (Consumption Device) gets the authentication result and related tokens. This mode will be used by default for the CIBA clients, which do not have other mode explicitly set.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Backchannel Token Delivery Mode",
-///  "description": "Specifies how the CD (Consumption Device) gets the authentication result and related tokens. This mode will be used by default for the CIBA clients, which do not have other mode explicitly set.",
-///  "type": "string",
-///  "enum": [
-///    "ping",
-///    "poll"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum BackchannelTokenDeliveryMode {
-    #[serde(rename = "ping")]
-    Ping,
-    #[serde(rename = "poll")]
-    Poll,
-}
-impl ::std::convert::From<&Self> for BackchannelTokenDeliveryMode {
-    fn from(value: &BackchannelTokenDeliveryMode) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for BackchannelTokenDeliveryMode {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Ping => write!(f, "ping"),
-            Self::Poll => write!(f, "poll"),
-        }
-    }
-}
-impl ::std::str::FromStr for BackchannelTokenDeliveryMode {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "ping" => Ok(Self::Ping),
-            "poll" => Ok(Self::Poll),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for BackchannelTokenDeliveryMode {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for BackchannelTokenDeliveryMode {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for BackchannelTokenDeliveryMode {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///BruteForceStrategy
@@ -3159,13 +2385,11 @@ impl ::std::convert::TryFrom<::std::string::String> for BruteForceStrategy {
 ///    "publicKey": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct CertificateRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub certificate: ::std::option::Option<::std::string::String>,
@@ -3237,13 +2461,11 @@ impl ::std::default::Default for CertificateRepresentation {
 ///    "website": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClaimRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub address: ::std::option::Option<bool>,
@@ -3401,13 +2623,11 @@ impl ::std::convert::TryFrom<::std::string::String> for ClientAuthenticator {
 ///      "maximum": 2147483647.0,
 ///      "minimum": -2147483648.0
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientInitialAccessCreatePresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub count: ::std::option::Option<i32>,
@@ -3466,13 +2686,11 @@ impl ::std::default::Default for ClientInitialAccessCreatePresentation {
 ///    "token": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientInitialAccessPresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub count: ::std::option::Option<i32>,
@@ -3529,13 +2747,11 @@ impl ::std::default::Default for ClientInitialAccessPresentation {
 ///        "$ref": "#/$defs/RoleRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientMappingsRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub client: ::std::option::Option<::std::string::String>,
@@ -3559,184 +2775,6 @@ impl ::std::default::Default for ClientMappingsRepresentation {
         }
     }
 }
-///Time a client offline session is allowed to be idle before it expires. Offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Idle value.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Client Offline Session Idle",
-///  "description": "Time a client offline session is allowed to be idle before it expires. Offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Idle value.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct ClientOfflineSessionIdle(::std::string::String);
-impl ::std::ops::Deref for ClientOfflineSessionIdle {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<ClientOfflineSessionIdle> for ::std::string::String {
-    fn from(value: ClientOfflineSessionIdle) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&ClientOfflineSessionIdle> for ClientOfflineSessionIdle {
-    fn from(value: &ClientOfflineSessionIdle) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for ClientOfflineSessionIdle {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for ClientOfflineSessionIdle {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ClientOfflineSessionIdle {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ClientOfflineSessionIdle {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for ClientOfflineSessionIdle {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
-///Max time before a client offline session is expired. If Offline Session Max Limited is enabled at realm level, offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Max value.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Client Offline Session Max",
-///  "description": "Max time before a client offline session is expired. If Offline Session Max Limited is enabled at realm level, offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Max value.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct ClientOfflineSessionMax(::std::string::String);
-impl ::std::ops::Deref for ClientOfflineSessionMax {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<ClientOfflineSessionMax> for ::std::string::String {
-    fn from(value: ClientOfflineSessionMax) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&ClientOfflineSessionMax> for ClientOfflineSessionMax {
-    fn from(value: &ClientOfflineSessionMax) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for ClientOfflineSessionMax {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for ClientOfflineSessionMax {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ClientOfflineSessionMax {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ClientOfflineSessionMax {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for ClientOfflineSessionMax {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
 ///ClientPoliciesRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -3757,13 +2795,11 @@ impl<'de> ::serde::Deserialize<'de> for ClientOfflineSessionMax {
 ///        "$ref": "#/$defs/ClientPolicyRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientPoliciesRepresentation {
     #[serde(
         rename = "globalPolicies",
@@ -3802,13 +2838,11 @@ impl ::std::default::Default for ClientPoliciesRepresentation {
 ///    "configuration": {
 ///      "type": "object"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientPolicyConditionRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub condition: ::std::option::Option<::std::string::String>,
@@ -3843,13 +2877,11 @@ impl ::std::default::Default for ClientPolicyConditionRepresentation {
 ///    "executor": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientPolicyExecutorRepresentation {
     #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
     pub configuration: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -3899,13 +2931,11 @@ impl ::std::default::Default for ClientPolicyExecutorRepresentation {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientPolicyRepresentation {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub conditions: ::std::vec::Vec<ClientPolicyConditionRepresentation>,
@@ -3954,13 +2984,11 @@ impl ::std::default::Default for ClientPolicyRepresentation {
 ///    "name": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientProfileRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub description: ::std::option::Option<::std::string::String>,
@@ -4003,13 +3031,11 @@ impl ::std::default::Default for ClientProfileRepresentation {
 ///        "$ref": "#/$defs/ClientProfileRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientProfilesRepresentation {
     #[serde(
         rename = "globalProfiles",
@@ -4060,213 +3086,6 @@ impl ::std::default::Default for ClientProfilesRepresentation {
 ///    },
 ///    "attributes": {
 ///      "type": "object",
-///      "properties": {
-///        "access.token.lifespan": {
-///          "title": "Access Token Lifespan",
-///          "description": "Max time before an access token is expired. This value is recommended to be short relative to the SSO timeout.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "access.token.signed.response.alg": {
-///          "title": "Access token signature algorithm",
-///          "description": "JWA algorithm used for signing access tokens.",
-///          "type": "string"
-///        },
-///        "authorization.encrypted.response.alg": {
-///          "title": "Authorization response encryption key management algorithm",
-///          "description": "JWA Algorithm used for key management in encrypting the authorization response when the response mode is jwt. This option is needed if you want encrypted authorization response. If left empty, the authorization response is just signed, but not encrypted.",
-///          "type": "string"
-///        },
-///        "authorization.encrypted.response.enc": {
-///          "title": "Authorization response encryption content encryption algorithm",
-///          "description": "JWA Algorithm used for content encryption in encrypting the authorization response when the response mode is jwt. This option is needed if you want encrypted authorization response. If left empty, the authorization response is just signed, but not encrypted.",
-///          "type": "string"
-///        },
-///        "authorization.signed.response.alg": {
-///          "title": "Authorization response signature algorithm",
-///          "description": "JWA algorithm used for signing authorization response tokens when the response mode is jwt.",
-///          "type": "string"
-///        },
-///        "client.offline.session.idle.timeout": {
-///          "title": "Client Offline Session Idle",
-///          "description": "Time a client offline session is allowed to be idle before it expires. Offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Idle value.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "client.offline.session.max.lifespan": {
-///          "title": "Client Offline Session Max",
-///          "description": "Max time before a client offline session is expired. If Offline Session Max Limited is enabled at realm level, offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Max value.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "client.session.idle.timeout": {
-///          "title": "Client Session Idle",
-///          "description": "Time a client session is allowed to be idle before it expires. Tokens are invalidated when a client session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Idle value.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "client.session.max.lifespan": {
-///          "title": "Client Session Max",
-///          "description": "Max time before a client session is expired. Tokens are invalidated when a session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Max value.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "client_credentials.use_refresh_token": {
-///          "title": "Use refresh tokens for client credentials grant",
-///          "description": "If this is on, a refresh_token will be created and added to the token response if the client_credentials grant is used. The OAuth 2.0 RFC6749 Section 4.4.3 states that a refresh_token should not be generated when client_credentials grant is used. If this is off then no refresh_token will be generated and the associated user session will be removed.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "exclude.session.state.from.auth.response": {
-///          "title": "Exclude Session State From Authentication Response",
-///          "description": "If this is on, the parameter 'session_state' will not be included in OpenID Connect Authentication Response. It is useful if the client uses an older OIDC / OAuth2 adapter, which does not support the 'session_state' parameter.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "id.token.encrypted.response.alg": {
-///          "title": "ID token encryption key management algorithm",
-///          "description": "JWA Algorithm used for key management in encrypting ID tokens. This option is needed if you want encrypted ID tokens. If left empty, ID Tokens are just signed, but not encrypted.",
-///          "type": "string"
-///        },
-///        "id.token.encrypted.response.enc": {
-///          "title": "ID token encryption content encryption algorithm",
-///          "description": "JWA Algorithm used for content encryption in encrypting ID tokens. This option is needed just if you want encrypted ID tokens. If left empty, ID Tokens are just signed, but not encrypted.",
-///          "type": "string"
-///        },
-///        "id.token.signed.response.alg": {
-///          "title": "ID token signature algorithm",
-///          "description": "JWA algorithm used for signing ID tokens.",
-///          "type": "string"
-///        },
-///        "logoUri": {
-///          "title": "Logo URL",
-///          "description": "URL that references a logo for the Client application",
-///          "type": "string"
-///        },
-///        "pkce.code.challenge.method": {
-///          "title": "Proof Key for Code Exchange Code Challenge Method",
-///          "description": "Choose which code challenge method for PKCE is used. If not specified, keycloak does not applies PKCE to a client unless the client sends an authorization request with appropriate code challenge and code exchange method.",
-///          "type": "string"
-///        },
-///        "policyUri": {
-///          "title": "Policy URL",
-///          "description": "URL that the Relying Party Client provides to the End-User to read about the how the profile data will be used",
-///          "type": "string"
-///        },
-///        "post.logout.redirect.uris": {
-///          "title": "Valid post logout redirect URIs",
-///          "description": "Valid URI pattern a browser can redirect to after a successful login. Simple wildcards are allowed such as 'http://example.com/*'. Relative path can be specified too such as /my/relative/path/*. Relative paths are relative to the client root URL, or if none is specified the auth server root URL is used. For SAML, you must set valid URI patterns if you are relying on the consumer service URL embedded with the login request.",
-///          "type": "string"
-///        },
-///        "request.object.encryption.alg": {
-///          "title": "Request object encryption algorithm",
-///          "description": "JWE algorithm, which client needs to use when sending OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', encryption is optional and any algorithm is allowed.",
-///          "type": "string"
-///        },
-///        "request.object.encryption.enc": {
-///          "title": "Request object content encryption algorithm",
-///          "description": "JWE algorithm, which client needs to use when encrypting the content of the OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', any algorithm is allowed.",
-///          "type": "string"
-///        },
-///        "request.object.required": {
-///          "title": "Request object required",
-///          "description": "Specifies if the client needs to provide a request object with their authorization requests, and what method they can use for this. If set to \"not required\", providing a request object is optional. In all other cases, providing a request object is mandatory. If set to \"request\", the request object must be provided by value. If set to \"request_uri\", the request object must be provided by reference. If set to \"request or request_uri\", either method can be used.",
-///          "type": "string"
-///        },
-///        "request.object.signature.alg": {
-///          "title": "Request object signature algorithm",
-///          "description": "JWA algorithm, which client needs to use when sending OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', Request object can be signed by any algorithm (including 'none' ).",
-///          "type": "string"
-///        },
-///        "require.pushed.authorization.requests": {
-///          "title": "Pushed authorization request required",
-///          "description": "Boolean parameter indicating whether the authorization server accepts authorization request data only via the pushed authorization request method.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "tls.client.certificate.bound.access.tokens": {
-///          "title": "OAuth 2.0 Mutual TLS Certificate Bound Access Tokens Enabled",
-///          "description": "This enables support for OAuth 2.0 Mutual TLS Certificate Bound Access Tokens, which means that keycloak bind an access token and a refresh token with a X.509 certificate of a token requesting client exchanged in mutual TLS between keycloak's Token Endpoint and this client. These tokens can be treated as Holder-of-Key tokens instead of bearer tokens.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "token.endpoint.auth.signing.alg": {
-///          "title": "Signature algorithm",
-///          "description": "The signature algorithm to use to sign documents. Note that 'SHA1' based algorithms are deprecated and can be removed in the future. It is recommended to stick to some more secure algorithm instead of '*_SHA1'.",
-///          "type": "string"
-///        },
-///        "token.response.type.bearer.lower-case": {
-///          "title": "Use lower-case bearer type in token responses",
-///          "description": "If this is on, token responses will be set the with the type \"bearer\" in lower-case. By default, the server sets the type as \"Bearer\" as defined by RFC6750.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "tosUri": {
-///          "title": "Terms of service URL",
-///          "description": "URL that the Relying Party Client provides to the End-User to read about the Relying Party's terms of service",
-///          "type": "string"
-///        },
-///        "use.refresh.tokens": {
-///          "title": "Use refresh tokens",
-///          "description": "If this is on, a refresh_token will be created and added to the token response. If this is off then no refresh_token will be generated.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "user.info.encrypted.response.alg": {
-///          "title": "User info response encryption key management algorithm",
-///          "description": "JWA Algorithm used for key management in encrypting User Info Endpoint responses. This option is needed if you want encrypted User Info Endpoint responses. If left empty, User Info Endpoint responses are not encrypted.",
-///          "type": "string"
-///        },
-///        "user.info.encrypted.response.enc": {
-///          "title": "User info response encryption content encryption algorithm",
-///          "description": "JWA Algorithm used for content encryption in encrypting User Info Endpoint responses. If User Info response encryption key management algorithm is specified, the default for this value is A128CBC-HS256.",
-///          "type": "string"
-///        },
-///        "user.info.response.signature.alg": {
-///          "title": "User info signed response algorithm",
-///          "description": "JWA algorithm used for signed User Info Endpoint response. If set to 'unsigned', User Info Response won't be signed and will be returned in application/json format.",
-///          "type": "string"
-///        },
-///        "x509.allow.regex.pattern.comparison": {
-///          "title": "Allow regex pattern comparison",
-///          "description": "If OFF, then the Subject DN from given client certificate must exactly match the given DN from the 'Subject DN' property as described in the RFC8705 specification. The Subject DN can be in the RFC4514 or RFC1779 format. If ON, then the Subject DN from given client certificate should match regex specified by 'Subject DN' property.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "x509.subjectdn": {
-///          "title": "Subject DN",
-///          "description": "A regular expression for validating Subject DN in the Client Certificate. Use \"(.*?)(?:$)\" to match all kind of expressions.",
-///          "type": "string"
-///        }
-///      },
 ///      "additionalProperties": {
 ///        "type": "string"
 ///      }
@@ -4274,18 +3093,6 @@ impl ::std::default::Default for ClientProfilesRepresentation {
 ///    "authenticationFlowBindingOverrides": {
 ///      "title": "Authentication flow overrides",
 ///      "type": "object",
-///      "properties": {
-///        "browser": {
-///          "title": "Browser Flow",
-///          "description": "Select the flow you want to use for browser authentication.",
-///          "type": "string"
-///        },
-///        "direct_grant": {
-///          "title": "Direct Grant Flow",
-///          "description": "Select the flow you want to use for direct grant authentication.",
-///          "type": "string"
-///        }
-///      },
 ///      "additionalProperties": {
 ///        "type": "string"
 ///      }
@@ -4486,13 +3293,11 @@ impl ::std::default::Default for ClientProfilesRepresentation {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientRepresentation {
     #[serde(
         default,
@@ -4513,15 +3318,22 @@ pub struct ClientRepresentation {
         skip_serializing_if = "::std::option::Option::is_none"
     )]
     pub always_display_in_console: ::std::option::Option<bool>,
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub attributes: ::std::option::Option<ClientRepresentationAttributes>,
+    #[serde(
+        default,
+        skip_serializing_if = ":: std :: collections :: BTreeMap::is_empty"
+    )]
+    pub attributes: ::std::collections::BTreeMap<
+        ::std::string::String,
+        ::std::string::String,
+    >,
     #[serde(
         rename = "authenticationFlowBindingOverrides",
         default,
-        skip_serializing_if = "::std::option::Option::is_none"
+        skip_serializing_if = ":: std :: collections :: BTreeMap::is_empty"
     )]
-    pub authentication_flow_binding_overrides: ::std::option::Option<
-        AuthenticationFlowOverrides,
+    pub authentication_flow_binding_overrides: ::std::collections::BTreeMap<
+        ::std::string::String,
+        ::std::string::String,
     >,
     ///Enable/Disable fine-grained authorization support for a client.
     #[serde(
@@ -4806,491 +3618,6 @@ impl ::std::default::Default for ClientRepresentation {
         }
     }
 }
-///ClientRepresentationAttributes
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "object",
-///  "properties": {
-///    "access.token.lifespan": {
-///      "title": "Access Token Lifespan",
-///      "description": "Max time before an access token is expired. This value is recommended to be short relative to the SSO timeout.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "access.token.signed.response.alg": {
-///      "title": "Access token signature algorithm",
-///      "description": "JWA algorithm used for signing access tokens.",
-///      "type": "string"
-///    },
-///    "authorization.encrypted.response.alg": {
-///      "title": "Authorization response encryption key management algorithm",
-///      "description": "JWA Algorithm used for key management in encrypting the authorization response when the response mode is jwt. This option is needed if you want encrypted authorization response. If left empty, the authorization response is just signed, but not encrypted.",
-///      "type": "string"
-///    },
-///    "authorization.encrypted.response.enc": {
-///      "title": "Authorization response encryption content encryption algorithm",
-///      "description": "JWA Algorithm used for content encryption in encrypting the authorization response when the response mode is jwt. This option is needed if you want encrypted authorization response. If left empty, the authorization response is just signed, but not encrypted.",
-///      "type": "string"
-///    },
-///    "authorization.signed.response.alg": {
-///      "title": "Authorization response signature algorithm",
-///      "description": "JWA algorithm used for signing authorization response tokens when the response mode is jwt.",
-///      "type": "string"
-///    },
-///    "client.offline.session.idle.timeout": {
-///      "title": "Client Offline Session Idle",
-///      "description": "Time a client offline session is allowed to be idle before it expires. Offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Idle value.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "client.offline.session.max.lifespan": {
-///      "title": "Client Offline Session Max",
-///      "description": "Max time before a client offline session is expired. If Offline Session Max Limited is enabled at realm level, offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Max value.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "client.session.idle.timeout": {
-///      "title": "Client Session Idle",
-///      "description": "Time a client session is allowed to be idle before it expires. Tokens are invalidated when a client session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Idle value.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "client.session.max.lifespan": {
-///      "title": "Client Session Max",
-///      "description": "Max time before a client session is expired. Tokens are invalidated when a session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Max value.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "client_credentials.use_refresh_token": {
-///      "title": "Use refresh tokens for client credentials grant",
-///      "description": "If this is on, a refresh_token will be created and added to the token response if the client_credentials grant is used. The OAuth 2.0 RFC6749 Section 4.4.3 states that a refresh_token should not be generated when client_credentials grant is used. If this is off then no refresh_token will be generated and the associated user session will be removed.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "exclude.session.state.from.auth.response": {
-///      "title": "Exclude Session State From Authentication Response",
-///      "description": "If this is on, the parameter 'session_state' will not be included in OpenID Connect Authentication Response. It is useful if the client uses an older OIDC / OAuth2 adapter, which does not support the 'session_state' parameter.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "id.token.encrypted.response.alg": {
-///      "title": "ID token encryption key management algorithm",
-///      "description": "JWA Algorithm used for key management in encrypting ID tokens. This option is needed if you want encrypted ID tokens. If left empty, ID Tokens are just signed, but not encrypted.",
-///      "type": "string"
-///    },
-///    "id.token.encrypted.response.enc": {
-///      "title": "ID token encryption content encryption algorithm",
-///      "description": "JWA Algorithm used for content encryption in encrypting ID tokens. This option is needed just if you want encrypted ID tokens. If left empty, ID Tokens are just signed, but not encrypted.",
-///      "type": "string"
-///    },
-///    "id.token.signed.response.alg": {
-///      "title": "ID token signature algorithm",
-///      "description": "JWA algorithm used for signing ID tokens.",
-///      "type": "string"
-///    },
-///    "logoUri": {
-///      "title": "Logo URL",
-///      "description": "URL that references a logo for the Client application",
-///      "type": "string"
-///    },
-///    "pkce.code.challenge.method": {
-///      "title": "Proof Key for Code Exchange Code Challenge Method",
-///      "description": "Choose which code challenge method for PKCE is used. If not specified, keycloak does not applies PKCE to a client unless the client sends an authorization request with appropriate code challenge and code exchange method.",
-///      "type": "string"
-///    },
-///    "policyUri": {
-///      "title": "Policy URL",
-///      "description": "URL that the Relying Party Client provides to the End-User to read about the how the profile data will be used",
-///      "type": "string"
-///    },
-///    "post.logout.redirect.uris": {
-///      "title": "Valid post logout redirect URIs",
-///      "description": "Valid URI pattern a browser can redirect to after a successful login. Simple wildcards are allowed such as 'http://example.com/*'. Relative path can be specified too such as /my/relative/path/*. Relative paths are relative to the client root URL, or if none is specified the auth server root URL is used. For SAML, you must set valid URI patterns if you are relying on the consumer service URL embedded with the login request.",
-///      "type": "string"
-///    },
-///    "request.object.encryption.alg": {
-///      "title": "Request object encryption algorithm",
-///      "description": "JWE algorithm, which client needs to use when sending OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', encryption is optional and any algorithm is allowed.",
-///      "type": "string"
-///    },
-///    "request.object.encryption.enc": {
-///      "title": "Request object content encryption algorithm",
-///      "description": "JWE algorithm, which client needs to use when encrypting the content of the OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', any algorithm is allowed.",
-///      "type": "string"
-///    },
-///    "request.object.required": {
-///      "title": "Request object required",
-///      "description": "Specifies if the client needs to provide a request object with their authorization requests, and what method they can use for this. If set to \"not required\", providing a request object is optional. In all other cases, providing a request object is mandatory. If set to \"request\", the request object must be provided by value. If set to \"request_uri\", the request object must be provided by reference. If set to \"request or request_uri\", either method can be used.",
-///      "type": "string"
-///    },
-///    "request.object.signature.alg": {
-///      "title": "Request object signature algorithm",
-///      "description": "JWA algorithm, which client needs to use when sending OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', Request object can be signed by any algorithm (including 'none' ).",
-///      "type": "string"
-///    },
-///    "require.pushed.authorization.requests": {
-///      "title": "Pushed authorization request required",
-///      "description": "Boolean parameter indicating whether the authorization server accepts authorization request data only via the pushed authorization request method.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "tls.client.certificate.bound.access.tokens": {
-///      "title": "OAuth 2.0 Mutual TLS Certificate Bound Access Tokens Enabled",
-///      "description": "This enables support for OAuth 2.0 Mutual TLS Certificate Bound Access Tokens, which means that keycloak bind an access token and a refresh token with a X.509 certificate of a token requesting client exchanged in mutual TLS between keycloak's Token Endpoint and this client. These tokens can be treated as Holder-of-Key tokens instead of bearer tokens.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "token.endpoint.auth.signing.alg": {
-///      "title": "Signature algorithm",
-///      "description": "The signature algorithm to use to sign documents. Note that 'SHA1' based algorithms are deprecated and can be removed in the future. It is recommended to stick to some more secure algorithm instead of '*_SHA1'.",
-///      "type": "string"
-///    },
-///    "token.response.type.bearer.lower-case": {
-///      "title": "Use lower-case bearer type in token responses",
-///      "description": "If this is on, token responses will be set the with the type \"bearer\" in lower-case. By default, the server sets the type as \"Bearer\" as defined by RFC6750.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "tosUri": {
-///      "title": "Terms of service URL",
-///      "description": "URL that the Relying Party Client provides to the End-User to read about the Relying Party's terms of service",
-///      "type": "string"
-///    },
-///    "use.refresh.tokens": {
-///      "title": "Use refresh tokens",
-///      "description": "If this is on, a refresh_token will be created and added to the token response. If this is off then no refresh_token will be generated.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "user.info.encrypted.response.alg": {
-///      "title": "User info response encryption key management algorithm",
-///      "description": "JWA Algorithm used for key management in encrypting User Info Endpoint responses. This option is needed if you want encrypted User Info Endpoint responses. If left empty, User Info Endpoint responses are not encrypted.",
-///      "type": "string"
-///    },
-///    "user.info.encrypted.response.enc": {
-///      "title": "User info response encryption content encryption algorithm",
-///      "description": "JWA Algorithm used for content encryption in encrypting User Info Endpoint responses. If User Info response encryption key management algorithm is specified, the default for this value is A128CBC-HS256.",
-///      "type": "string"
-///    },
-///    "user.info.response.signature.alg": {
-///      "title": "User info signed response algorithm",
-///      "description": "JWA algorithm used for signed User Info Endpoint response. If set to 'unsigned', User Info Response won't be signed and will be returned in application/json format.",
-///      "type": "string"
-///    },
-///    "x509.allow.regex.pattern.comparison": {
-///      "title": "Allow regex pattern comparison",
-///      "description": "If OFF, then the Subject DN from given client certificate must exactly match the given DN from the 'Subject DN' property as described in the RFC8705 specification. The Subject DN can be in the RFC4514 or RFC1779 format. If ON, then the Subject DN from given client certificate should match regex specified by 'Subject DN' property.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "x509.subjectdn": {
-///      "title": "Subject DN",
-///      "description": "A regular expression for validating Subject DN in the Client Certificate. Use \"(.*?)(?:$)\" to match all kind of expressions.",
-///      "type": "string"
-///    }
-///  },
-///  "additionalProperties": {
-///    "type": "string"
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-pub struct ClientRepresentationAttributes {
-    ///Max time before an access token is expired. This value is recommended to be short relative to the SSO timeout.
-    #[serde(
-        rename = "access.token.lifespan",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub access_token_lifespan: ::std::option::Option<AccessTokenLifespan>,
-    ///JWA algorithm used for signing access tokens.
-    #[serde(
-        rename = "access.token.signed.response.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub access_token_signed_response_alg: ::std::option::Option<::std::string::String>,
-    ///JWA Algorithm used for key management in encrypting the authorization response when the response mode is jwt. This option is needed if you want encrypted authorization response. If left empty, the authorization response is just signed, but not encrypted.
-    #[serde(
-        rename = "authorization.encrypted.response.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub authorization_encrypted_response_alg: ::std::option::Option<
-        ::std::string::String,
-    >,
-    ///JWA Algorithm used for content encryption in encrypting the authorization response when the response mode is jwt. This option is needed if you want encrypted authorization response. If left empty, the authorization response is just signed, but not encrypted.
-    #[serde(
-        rename = "authorization.encrypted.response.enc",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub authorization_encrypted_response_enc: ::std::option::Option<
-        ::std::string::String,
-    >,
-    ///JWA algorithm used for signing authorization response tokens when the response mode is jwt.
-    #[serde(
-        rename = "authorization.signed.response.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub authorization_signed_response_alg: ::std::option::Option<::std::string::String>,
-    ///If this is on, a refresh_token will be created and added to the token response if the client_credentials grant is used. The OAuth 2.0 RFC6749 Section 4.4.3 states that a refresh_token should not be generated when client_credentials grant is used. If this is off then no refresh_token will be generated and the associated user session will be removed.
-    #[serde(
-        rename = "client_credentials.use_refresh_token",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub client_credentials_use_refresh_token: ::std::option::Option<
-        UseRefreshTokensForClientCredentialsGrant,
-    >,
-    ///Time a client offline session is allowed to be idle before it expires. Offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Idle value.
-    #[serde(
-        rename = "client.offline.session.idle.timeout",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub client_offline_session_idle_timeout: ::std::option::Option<
-        ClientOfflineSessionIdle,
-    >,
-    ///Max time before a client offline session is expired. If Offline Session Max Limited is enabled at realm level, offline tokens are invalidated when a client offline session is expired. The option does not affect the global user SSO session. If not set, it uses the realm Offline Session Max value.
-    #[serde(
-        rename = "client.offline.session.max.lifespan",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub client_offline_session_max_lifespan: ::std::option::Option<
-        ClientOfflineSessionMax,
-    >,
-    ///Time a client session is allowed to be idle before it expires. Tokens are invalidated when a client session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Idle value.
-    #[serde(
-        rename = "client.session.idle.timeout",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub client_session_idle_timeout: ::std::option::Option<ClientSessionIdle>,
-    ///Max time before a client session is expired. Tokens are invalidated when a session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Max value.
-    #[serde(
-        rename = "client.session.max.lifespan",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub client_session_max_lifespan: ::std::option::Option<ClientSessionMax>,
-    ///If this is on, the parameter 'session_state' will not be included in OpenID Connect Authentication Response. It is useful if the client uses an older OIDC / OAuth2 adapter, which does not support the 'session_state' parameter.
-    #[serde(
-        rename = "exclude.session.state.from.auth.response",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub exclude_session_state_from_auth_response: ::std::option::Option<
-        ExcludeSessionStateFromAuthenticationResponse,
-    >,
-    ///JWA Algorithm used for key management in encrypting ID tokens. This option is needed if you want encrypted ID tokens. If left empty, ID Tokens are just signed, but not encrypted.
-    #[serde(
-        rename = "id.token.encrypted.response.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub id_token_encrypted_response_alg: ::std::option::Option<::std::string::String>,
-    ///JWA Algorithm used for content encryption in encrypting ID tokens. This option is needed just if you want encrypted ID tokens. If left empty, ID Tokens are just signed, but not encrypted.
-    #[serde(
-        rename = "id.token.encrypted.response.enc",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub id_token_encrypted_response_enc: ::std::option::Option<::std::string::String>,
-    ///JWA algorithm used for signing ID tokens.
-    #[serde(
-        rename = "id.token.signed.response.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub id_token_signed_response_alg: ::std::option::Option<::std::string::String>,
-    ///URL that references a logo for the Client application
-    #[serde(
-        rename = "logoUri",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub logo_uri: ::std::option::Option<::std::string::String>,
-    ///Choose which code challenge method for PKCE is used. If not specified, keycloak does not applies PKCE to a client unless the client sends an authorization request with appropriate code challenge and code exchange method.
-    #[serde(
-        rename = "pkce.code.challenge.method",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub pkce_code_challenge_method: ::std::option::Option<::std::string::String>,
-    ///URL that the Relying Party Client provides to the End-User to read about the how the profile data will be used
-    #[serde(
-        rename = "policyUri",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub policy_uri: ::std::option::Option<::std::string::String>,
-    ///Valid URI pattern a browser can redirect to after a successful login. Simple wildcards are allowed such as 'http://example.com/*'. Relative path can be specified too such as /my/relative/path/*. Relative paths are relative to the client root URL, or if none is specified the auth server root URL is used. For SAML, you must set valid URI patterns if you are relying on the consumer service URL embedded with the login request.
-    #[serde(
-        rename = "post.logout.redirect.uris",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub post_logout_redirect_uris: ::std::option::Option<::std::string::String>,
-    ///JWE algorithm, which client needs to use when sending OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', encryption is optional and any algorithm is allowed.
-    #[serde(
-        rename = "request.object.encryption.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub request_object_encryption_alg: ::std::option::Option<::std::string::String>,
-    ///JWE algorithm, which client needs to use when encrypting the content of the OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', any algorithm is allowed.
-    #[serde(
-        rename = "request.object.encryption.enc",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub request_object_encryption_enc: ::std::option::Option<::std::string::String>,
-    ///Specifies if the client needs to provide a request object with their authorization requests, and what method they can use for this. If set to "not required", providing a request object is optional. In all other cases, providing a request object is mandatory. If set to "request", the request object must be provided by value. If set to "request_uri", the request object must be provided by reference. If set to "request or request_uri", either method can be used.
-    #[serde(
-        rename = "request.object.required",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub request_object_required: ::std::option::Option<::std::string::String>,
-    ///JWA algorithm, which client needs to use when sending OIDC request object specified by 'request' or 'request_uri' parameters. If set to 'any', Request object can be signed by any algorithm (including 'none' ).
-    #[serde(
-        rename = "request.object.signature.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub request_object_signature_alg: ::std::option::Option<::std::string::String>,
-    ///Boolean parameter indicating whether the authorization server accepts authorization request data only via the pushed authorization request method.
-    #[serde(
-        rename = "require.pushed.authorization.requests",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub require_pushed_authorization_requests: ::std::option::Option<
-        PushedAuthorizationRequestRequired,
-    >,
-    ///This enables support for OAuth 2.0 Mutual TLS Certificate Bound Access Tokens, which means that keycloak bind an access token and a refresh token with a X.509 certificate of a token requesting client exchanged in mutual TLS between keycloak's Token Endpoint and this client. These tokens can be treated as Holder-of-Key tokens instead of bearer tokens.
-    #[serde(
-        rename = "tls.client.certificate.bound.access.tokens",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub tls_client_certificate_bound_access_tokens: ::std::option::Option<
-        OAuth20MutualTlsCertificateBoundAccessTokensEnabled,
-    >,
-    ///The signature algorithm to use to sign documents. Note that 'SHA1' based algorithms are deprecated and can be removed in the future. It is recommended to stick to some more secure algorithm instead of '*_SHA1'.
-    #[serde(
-        rename = "token.endpoint.auth.signing.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub token_endpoint_auth_signing_alg: ::std::option::Option<::std::string::String>,
-    ///If this is on, token responses will be set the with the type "bearer" in lower-case. By default, the server sets the type as "Bearer" as defined by RFC6750.
-    #[serde(
-        rename = "token.response.type.bearer.lower-case",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub token_response_type_bearer_lower_case: ::std::option::Option<
-        UseLowerCaseBearerTypeInTokenResponses,
-    >,
-    ///URL that the Relying Party Client provides to the End-User to read about the Relying Party's terms of service
-    #[serde(
-        rename = "tosUri",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub tos_uri: ::std::option::Option<::std::string::String>,
-    ///If this is on, a refresh_token will be created and added to the token response. If this is off then no refresh_token will be generated.
-    #[serde(
-        rename = "use.refresh.tokens",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub use_refresh_tokens: ::std::option::Option<UseRefreshTokens>,
-    ///JWA Algorithm used for key management in encrypting User Info Endpoint responses. This option is needed if you want encrypted User Info Endpoint responses. If left empty, User Info Endpoint responses are not encrypted.
-    #[serde(
-        rename = "user.info.encrypted.response.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub user_info_encrypted_response_alg: ::std::option::Option<::std::string::String>,
-    ///JWA Algorithm used for content encryption in encrypting User Info Endpoint responses. If User Info response encryption key management algorithm is specified, the default for this value is A128CBC-HS256.
-    #[serde(
-        rename = "user.info.encrypted.response.enc",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub user_info_encrypted_response_enc: ::std::option::Option<::std::string::String>,
-    ///JWA algorithm used for signed User Info Endpoint response. If set to 'unsigned', User Info Response won't be signed and will be returned in application/json format.
-    #[serde(
-        rename = "user.info.response.signature.alg",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub user_info_response_signature_alg: ::std::option::Option<::std::string::String>,
-    ///If OFF, then the Subject DN from given client certificate must exactly match the given DN from the 'Subject DN' property as described in the RFC8705 specification. The Subject DN can be in the RFC4514 or RFC1779 format. If ON, then the Subject DN from given client certificate should match regex specified by 'Subject DN' property.
-    #[serde(
-        rename = "x509.allow.regex.pattern.comparison",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub x509_allow_regex_pattern_comparison: ::std::option::Option<
-        AllowRegexPatternComparison,
-    >,
-    ///A regular expression for validating Subject DN in the Client Certificate. Use "(.*?)(?:$)" to match all kind of expressions.
-    #[serde(
-        rename = "x509.subjectdn",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub x509_subjectdn: ::std::option::Option<::std::string::String>,
-    #[serde(flatten)]
-    pub extra: ::std::collections::BTreeMap<
-        ::std::string::String,
-        ::std::string::String,
-    >,
-}
-impl ::std::convert::From<&ClientRepresentationAttributes>
-for ClientRepresentationAttributes {
-    fn from(value: &ClientRepresentationAttributes) -> Self {
-        value.clone()
-    }
-}
 ///ClientScopeRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -5327,13 +3654,11 @@ for ClientRepresentationAttributes {
 ///        "$ref": "#/$defs/ProtocolMapperRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientScopeRepresentation {
     #[serde(
         default,
@@ -5459,184 +3784,6 @@ for ClientScopeRepresentationProtocol {
         value.parse()
     }
 }
-///Time a client session is allowed to be idle before it expires. Tokens are invalidated when a client session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Idle value.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Client Session Idle",
-///  "description": "Time a client session is allowed to be idle before it expires. Tokens are invalidated when a client session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Idle value.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct ClientSessionIdle(::std::string::String);
-impl ::std::ops::Deref for ClientSessionIdle {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<ClientSessionIdle> for ::std::string::String {
-    fn from(value: ClientSessionIdle) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&ClientSessionIdle> for ClientSessionIdle {
-    fn from(value: &ClientSessionIdle) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for ClientSessionIdle {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for ClientSessionIdle {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ClientSessionIdle {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ClientSessionIdle {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for ClientSessionIdle {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
-///Max time before a client session is expired. Tokens are invalidated when a session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Max value.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Client Session Max",
-///  "description": "Max time before a client session is expired. Tokens are invalidated when a session is expired. The option does not affect the global user SSO session. If not set, it uses the standard SSO Session Max value.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct ClientSessionMax(::std::string::String);
-impl ::std::ops::Deref for ClientSessionMax {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<ClientSessionMax> for ::std::string::String {
-    fn from(value: ClientSessionMax) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&ClientSessionMax> for ClientSessionMax {
-    fn from(value: &ClientSessionMax) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for ClientSessionMax {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for ClientSessionMax {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ClientSessionMax {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ClientSessionMax {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for ClientSessionMax {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
 ///ClientTemplateRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -5696,13 +3843,11 @@ impl<'de> ::serde::Deserialize<'de> for ClientSessionMax {
 ///    "standardFlowEnabled": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientTemplateRepresentation {
     #[serde(
         default,
@@ -5831,13 +3976,11 @@ impl ::std::default::Default for ClientTemplateRepresentation {
 ///    "provider": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientTypeRepresentation {
     #[serde(
         default,
@@ -5886,13 +4029,11 @@ impl ::std::default::Default for ClientTypeRepresentation {
 ///        "$ref": "#/$defs/ClientTypeRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ClientTypesRepresentation {
     #[serde(
         rename = "client-types",
@@ -5918,100 +4059,6 @@ impl ::std::default::Default for ClientTypesRepresentation {
             client_types: Default::default(),
             global_client_types: Default::default(),
         }
-    }
-}
-///Specifies the comparison method used to evaluate the requested context classes or statements. The default is "Exact".
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Comparison",
-///  "description": "Specifies the comparison method used to evaluate the requested context classes or statements. The default is \"Exact\".",
-///  "type": "string",
-///  "enum": [
-///    "exact",
-///    "minimum",
-///    "maximum",
-///    "better"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum Comparison {
-    #[serde(rename = "exact")]
-    Exact,
-    #[serde(rename = "minimum")]
-    Minimum,
-    #[serde(rename = "maximum")]
-    Maximum,
-    #[serde(rename = "better")]
-    Better,
-}
-impl ::std::convert::From<&Self> for Comparison {
-    fn from(value: &Comparison) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for Comparison {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Exact => write!(f, "exact"),
-            Self::Minimum => write!(f, "minimum"),
-            Self::Maximum => write!(f, "maximum"),
-            Self::Better => write!(f, "better"),
-        }
-    }
-}
-impl ::std::str::FromStr for Comparison {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "exact" => Ok(Self::Exact),
-            "minimum" => Ok(Self::Minimum),
-            "maximum" => Ok(Self::Maximum),
-            "better" => Ok(Self::Better),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for Comparison {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for Comparison {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for Comparison {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///ComponentExportRepresentation
@@ -6040,13 +4087,11 @@ impl ::std::convert::TryFrom<::std::string::String> for Comparison {
 ///    "subType": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ComponentExportRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub config: ::std::option::Option<MultivaluedHashMapStringString>,
@@ -6122,13 +4167,11 @@ impl ::std::default::Default for ComponentExportRepresentation {
 ///    "subType": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ComponentRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub config: ::std::option::Option<MultivaluedHashMapStringString>,
@@ -6203,13 +4246,11 @@ impl ::std::default::Default for ComponentRepresentation {
 ///        "$ref": "#/$defs/ConfigPropertyRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ComponentTypeRepresentation {
     #[serde(
         rename = "helpText",
@@ -6272,13 +4313,11 @@ impl ::std::default::Default for ComponentTypeRepresentation {
 ///      },
 ///      "uniqueItems": true
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct Composites {
     #[serde(
         default,
@@ -6349,13 +4388,11 @@ impl ::std::default::Default for Composites {
 ///    "type": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ConfigPropertyRepresentation {
     #[serde(
         rename = "defaultValue",
@@ -6427,13 +4464,11 @@ impl ::std::default::Default for ConfigPropertyRepresentation {
 ///    "x5t#S256": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct Confirmation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub jkt: ::std::option::Option<::std::string::String>,
@@ -6542,13 +4577,11 @@ impl ::std::default::Default for Confirmation {
 ///    "value": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct CredentialRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub algorithm: ::std::option::Option<::std::string::String>,
@@ -7247,13 +5280,11 @@ impl ::std::convert::TryFrom<::std::string::String> for EnforcementMode {
 ///    "status": {
 ///      "$ref": "#/$defs/DecisionEffect"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct EvaluationResultRepresentation {
     #[serde(
         rename = "allowedScopes",
@@ -7328,13 +5359,11 @@ impl ::std::default::Default for EvaluationResultRepresentation {
 ///    "userId": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct EventRepresentation {
     #[serde(
         rename = "clientId",
@@ -7405,275 +5434,6 @@ impl ::std::default::Default for EventRepresentation {
         }
     }
 }
-///If this is on, the parameter 'session_state' will not be included in OpenID Connect Authentication Response. It is useful if the client uses an older OIDC / OAuth2 adapter, which does not support the 'session_state' parameter.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Exclude Session State From Authentication Response",
-///  "description": "If this is on, the parameter 'session_state' will not be included in OpenID Connect Authentication Response. It is useful if the client uses an older OIDC / OAuth2 adapter, which does not support the 'session_state' parameter.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum ExcludeSessionStateFromAuthenticationResponse {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for ExcludeSessionStateFromAuthenticationResponse {
-    fn from(value: &ExcludeSessionStateFromAuthenticationResponse) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ExcludeSessionStateFromAuthenticationResponse {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for ExcludeSessionStateFromAuthenticationResponse {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ExcludeSessionStateFromAuthenticationResponse {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for ExcludeSessionStateFromAuthenticationResponse {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for ExcludeSessionStateFromAuthenticationResponse {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Sets the expiration for events. Expired events are periodically deleted from the database.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Expiration",
-///  "description": "Sets the expiration for events. Expired events are periodically deleted from the database.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct Expiration(::std::string::String);
-impl ::std::ops::Deref for Expiration {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<Expiration> for ::std::string::String {
-    fn from(value: Expiration) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&Expiration> for Expiration {
-    fn from(value: &Expiration) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for Expiration {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for Expiration {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for Expiration {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for Expiration {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for Expiration {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
-///The expiration time of the "auth_req_id" in seconds since the authentication request was received.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Expires In",
-///  "description": "The expiration time of the \"auth_req_id\" in seconds since the authentication request was received.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct ExpiresIn(::std::string::String);
-impl ::std::ops::Deref for ExpiresIn {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<ExpiresIn> for ::std::string::String {
-    fn from(value: ExpiresIn) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&ExpiresIn> for ExpiresIn {
-    fn from(value: &ExpiresIn) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for ExpiresIn {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for ExpiresIn {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ExpiresIn {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ExpiresIn {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for ExpiresIn {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
 ///FederatedIdentityRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -7691,13 +5451,11 @@ impl<'de> ::serde::Deserialize<'de> for ExpiresIn {
 ///    "userName": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct FederatedIdentityRepresentation {
     #[serde(
         rename = "identityProvider",
@@ -7733,95 +5491,6 @@ impl ::std::default::Default for FederatedIdentityRepresentation {
         }
     }
 }
-///Indicates whether the identity provider must authenticate the presenter directly rather than rely on a previous security context.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Force authentication",
-///  "description": "Indicates whether the identity provider must authenticate the presenter directly rather than rely on a previous security context.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum ForceAuthentication {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for ForceAuthentication {
-    fn from(value: &ForceAuthentication) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ForceAuthentication {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for ForceAuthentication {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ForceAuthentication {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ForceAuthentication {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ForceAuthentication {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 ///GlobalRequestResult
 ///
 /// <details><summary>JSON schema</summary>
@@ -7842,13 +5511,11 @@ impl ::std::convert::TryFrom<::std::string::String> for ForceAuthentication {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct GlobalRequestResult {
     #[serde(
         rename = "failedRequests",
@@ -7938,13 +5605,11 @@ impl ::std::default::Default for GlobalRequestResult {
 ///        "$ref": "#/$defs/GroupRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct GroupRepresentation {
     #[serde(
         default,
@@ -8018,362 +5683,6 @@ impl ::std::default::Default for GroupRepresentation {
             sub_group_count: Default::default(),
             sub_groups: Default::default(),
         }
-    }
-}
-///If hidden, login with this provider is possible only if requested explicitly, for example using the 'kc_idp_hint' parameter.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Hide on login page",
-///  "description": "If hidden, login with this provider is possible only if requested explicitly, for example using the 'kc_idp_hint' parameter.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum HideOnLoginPage {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for HideOnLoginPage {
-    fn from(value: &HideOnLoginPage) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for HideOnLoginPage {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for HideOnLoginPage {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for HideOnLoginPage {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for HideOnLoginPage {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for HideOnLoginPage {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Indicates whether the AuthnRequest must be sent using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "HTTP-POST binding for AuthnRequest",
-///  "description": "Indicates whether the AuthnRequest must be sent using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum HttpPostBindingForAuthnRequest {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for HttpPostBindingForAuthnRequest {
-    fn from(value: &HttpPostBindingForAuthnRequest) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for HttpPostBindingForAuthnRequest {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for HttpPostBindingForAuthnRequest {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for HttpPostBindingForAuthnRequest {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for HttpPostBindingForAuthnRequest {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for HttpPostBindingForAuthnRequest {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "HTTP-POST binding logout",
-///  "description": "Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum HttpPostBindingLogout {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for HttpPostBindingLogout {
-    fn from(value: &HttpPostBindingLogout) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for HttpPostBindingLogout {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for HttpPostBindingLogout {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for HttpPostBindingLogout {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for HttpPostBindingLogout {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for HttpPostBindingLogout {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "HTTP-POST binding response",
-///  "description": "Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum HttpPostBindingResponse {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for HttpPostBindingResponse {
-    fn from(value: &HttpPostBindingResponse) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for HttpPostBindingResponse {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for HttpPostBindingResponse {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for HttpPostBindingResponse {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for HttpPostBindingResponse {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for HttpPostBindingResponse {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///IdToken
@@ -8508,13 +5817,11 @@ impl ::std::convert::TryFrom<::std::string::String> for HttpPostBindingResponse 
 ///    "zoneinfo": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct IdToken {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub acr: ::std::option::Option<::std::string::String>,
@@ -8650,37 +5957,6 @@ impl ::std::default::Default for IdToken {
 ///  "properties": {
 ///    "config": {
 ///      "type": "object",
-///      "properties": {
-///        "attribute.friendly.name": {
-///          "title": "Friendly name",
-///          "description": "Friendly name of attribute to search for in assertion. You can leave this blank and specify a name instead.",
-///          "type": "string"
-///        },
-///        "attribute.name.format": {
-///          "type": "string",
-///          "enum": [
-///            "ATTRIBUTE_FORMAT_BASIC",
-///            "ATTRIBUTE_FORMAT_URI",
-///            "ATTRIBUTE_FORMAT_UNSPECIFIED"
-///          ]
-///        },
-///        "syncMode": {
-///          "title": "Sync mode override",
-///          "description": "Overrides the default sync mode of the IDP for this mapper. Values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider and 'inherit' to use the sync mode defined in the identity provider for this mapper.",
-///          "type": "string",
-///          "enum": [
-///            "INHERIT",
-///            "IMPORT",
-///            "LEGACY",
-///            "FORCE"
-///          ]
-///        },
-///        "user.attribute": {
-///          "title": "User Attribute Name",
-///          "description": "Name of user attribute you want to hardcode",
-///          "type": "string"
-///        }
-///      },
 ///      "additionalProperties": {
 ///        "type": "string"
 ///      }
@@ -8699,16 +5975,20 @@ impl ::std::default::Default for IdToken {
 ///      "description": "Name of the mapper.",
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct IdentityProviderMapperRepresentation {
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub config: ::std::option::Option<IdentityProviderMapperRepresentationConfig>,
+    #[serde(
+        default,
+        skip_serializing_if = ":: std :: collections :: BTreeMap::is_empty"
+    )]
+    pub config: ::std::collections::BTreeMap<
+        ::std::string::String,
+        ::std::string::String,
+    >,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub id: ::std::option::Option<::std::string::String>,
     #[serde(
@@ -8744,188 +6024,6 @@ impl ::std::default::Default for IdentityProviderMapperRepresentation {
         }
     }
 }
-///IdentityProviderMapperRepresentationConfig
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "object",
-///  "properties": {
-///    "attribute.friendly.name": {
-///      "title": "Friendly name",
-///      "description": "Friendly name of attribute to search for in assertion. You can leave this blank and specify a name instead.",
-///      "type": "string"
-///    },
-///    "attribute.name.format": {
-///      "type": "string",
-///      "enum": [
-///        "ATTRIBUTE_FORMAT_BASIC",
-///        "ATTRIBUTE_FORMAT_URI",
-///        "ATTRIBUTE_FORMAT_UNSPECIFIED"
-///      ]
-///    },
-///    "syncMode": {
-///      "title": "Sync mode override",
-///      "description": "Overrides the default sync mode of the IDP for this mapper. Values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider and 'inherit' to use the sync mode defined in the identity provider for this mapper.",
-///      "type": "string",
-///      "enum": [
-///        "INHERIT",
-///        "IMPORT",
-///        "LEGACY",
-///        "FORCE"
-///      ]
-///    },
-///    "user.attribute": {
-///      "title": "User Attribute Name",
-///      "description": "Name of user attribute you want to hardcode",
-///      "type": "string"
-///    }
-///  },
-///  "additionalProperties": {
-///    "type": "string"
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-pub struct IdentityProviderMapperRepresentationConfig {
-    ///Friendly name of attribute to search for in assertion. You can leave this blank and specify a name instead.
-    #[serde(
-        rename = "attribute.friendly.name",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub attribute_friendly_name: ::std::option::Option<::std::string::String>,
-    #[serde(
-        rename = "attribute.name.format",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub attribute_name_format: ::std::option::Option<
-        IdentityProviderMapperRepresentationConfigAttributeNameFormat,
-    >,
-    ///Overrides the default sync mode of the IDP for this mapper. Values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider and 'inherit' to use the sync mode defined in the identity provider for this mapper.
-    #[serde(
-        rename = "syncMode",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub sync_mode: ::std::option::Option<SyncModeOverride>,
-    ///Name of user attribute you want to hardcode
-    #[serde(
-        rename = "user.attribute",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub user_attribute: ::std::option::Option<::std::string::String>,
-    #[serde(flatten)]
-    pub extra: ::std::collections::BTreeMap<
-        ::std::string::String,
-        ::std::string::String,
-    >,
-}
-impl ::std::convert::From<&IdentityProviderMapperRepresentationConfig>
-for IdentityProviderMapperRepresentationConfig {
-    fn from(value: &IdentityProviderMapperRepresentationConfig) -> Self {
-        value.clone()
-    }
-}
-///IdentityProviderMapperRepresentationConfigAttributeNameFormat
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "string",
-///  "enum": [
-///    "ATTRIBUTE_FORMAT_BASIC",
-///    "ATTRIBUTE_FORMAT_URI",
-///    "ATTRIBUTE_FORMAT_UNSPECIFIED"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    #[serde(rename = "ATTRIBUTE_FORMAT_BASIC")]
-    AttributeFormatBasic,
-    #[serde(rename = "ATTRIBUTE_FORMAT_URI")]
-    AttributeFormatUri,
-    #[serde(rename = "ATTRIBUTE_FORMAT_UNSPECIFIED")]
-    AttributeFormatUnspecified,
-}
-impl ::std::convert::From<&Self>
-for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    fn from(
-        value: &IdentityProviderMapperRepresentationConfigAttributeNameFormat,
-    ) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display
-for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::AttributeFormatBasic => write!(f, "ATTRIBUTE_FORMAT_BASIC"),
-            Self::AttributeFormatUri => write!(f, "ATTRIBUTE_FORMAT_URI"),
-            Self::AttributeFormatUnspecified => write!(f, "ATTRIBUTE_FORMAT_UNSPECIFIED"),
-        }
-    }
-}
-impl ::std::str::FromStr
-for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "ATTRIBUTE_FORMAT_BASIC" => Ok(Self::AttributeFormatBasic),
-            "ATTRIBUTE_FORMAT_URI" => Ok(Self::AttributeFormatUri),
-            "ATTRIBUTE_FORMAT_UNSPECIFIED" => Ok(Self::AttributeFormatUnspecified),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str>
-for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 ///IdentityProviderMapperTypeRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -8952,13 +6050,11 @@ for IdentityProviderMapperRepresentationConfigAttributeNameFormat {
 ///        "$ref": "#/$defs/ConfigPropertyRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct IdentityProviderMapperTypeRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub category: ::std::option::Option<::std::string::String>,
@@ -9015,241 +6111,6 @@ impl ::std::default::Default for IdentityProviderMapperTypeRepresentation {
 ///    },
 ///    "config": {
 ///      "type": "object",
-///      "properties": {
-///        "allowCreate": {
-///          "title": "Allow create",
-///          "description": "Allow the external identity provider to create a new identifier to represent the principal.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "allowedClockSkew": {
-///          "title": "Allowed clock skew",
-///          "description": "Clock skew in seconds that is tolerated when validating identity provider tokens. Default value is zero.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "attributeConsumingServiceIndex": {
-///          "title": "Attribute Consuming Service Index",
-///          "description": "Index of the Attribute Consuming Service profile to request during authentication.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "authnContextClassRefs": {
-///          "title": "AuthnContext ClassRefs",
-///          "description": "Ordered list of requested AuthnContext ClassRefs.",
-///          "type": "string"
-///        },
-///        "authnContextComparisonType": {
-///          "title": "Comparison",
-///          "description": "Specifies the comparison method used to evaluate the requested context classes or statements. The default is \"Exact\".",
-///          "type": "string",
-///          "enum": [
-///            "exact",
-///            "minimum",
-///            "maximum",
-///            "better"
-///          ]
-///        },
-///        "authnContextDeclRefs": {
-///          "title": "AuthnContext DeclRefs",
-///          "description": "Ordered list of requested AuthnContext DeclRefs.",
-///          "type": "string"
-///        },
-///        "backchannelSupported": {
-///          "title": "Backchannel logout",
-///          "description": "Does the external IDP support backchannel logout?",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "encryptionAlgorithm": {
-///          "title": "Encryption Algorithm",
-///          "description": "Encryption algorithm, which is used by SAML IDP for encryption of SAML documents, assertions or IDs. The corresponding decryption key for decrypt SAML document parts will be chosen based on this configured algorithm and should be available in realm keys for the encryption (ENC) usage. If algorithm is not configured, then any supported algorithm is allowed and decryption key will be chosen based on the algorithm configured in SAML document itself.",
-///          "type": "string"
-///        },
-///        "entityId": {
-///          "title": "Service provider entity ID",
-///          "description": "The Entity ID that will be used to uniquely identify this SAML Service Provider.",
-///          "type": "string"
-///        },
-///        "forceAuthn": {
-///          "title": "Force authentication",
-///          "description": "Indicates whether the identity provider must authenticate the presenter directly rather than rely on a previous security context.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "hideOnLoginPage": {
-///          "title": "Hide on login page",
-///          "description": "If hidden, login with this provider is possible only if requested explicitly, for example using the 'kc_idp_hint' parameter.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "idpEntityId": {
-///          "title": "Identity provider entity ID",
-///          "description": "The Entity ID used to validate the Issuer for received SAML assertions. If empty, no Issuer validation is performed.",
-///          "type": "string"
-///        },
-///        "loginHint": {
-///          "title": "Pass subject",
-///          "description": "During login phase, forward an optional login_hint query parameter to SAML AuthnRequest's Subject.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "nameIDPolicyFormat": {
-///          "title": "NameID policy format",
-///          "description": "Specifies the URI reference corresponding to a name identifier format.",
-///          "type": "string"
-///        },
-///        "postBindingAuthnRequest": {
-///          "title": "HTTP-POST binding for AuthnRequest",
-///          "description": "Indicates whether the AuthnRequest must be sent using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "postBindingLogout": {
-///          "title": "HTTP-POST binding logout",
-///          "description": "Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "postBindingResponse": {
-///          "title": "HTTP-POST binding response",
-///          "description": "Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "principalAttribute": {
-///          "title": "Principal attribute",
-///          "description": "Name or Friendly Name of the attribute used to identify external users.",
-///          "type": "string"
-///        },
-///        "principalType": {
-///          "title": "Principal type",
-///          "description": "Way to identify and track external users from the assertion. Default is using Subject NameID, alternatively you can set up identifying attribute.",
-///          "type": "string",
-///          "enum": [
-///            "SUBJECT",
-///            "ATTRIBUTE",
-///            "FRIENDLY_ATTRIBUTE"
-///          ]
-///        },
-///        "signSpMetadata": {
-///          "title": "Sign service provider metadata",
-///          "description": "Enable/disable signature of the provider SAML metadata.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "signatureAlgorithm": {
-///          "title": "Signature algorithm",
-///          "description": "The signature algorithm to use to sign documents. Note that 'SHA1' based algorithms are deprecated and can be removed in the future. It is recommended to stick to some more secure algorithm instead of '*_SHA1'.",
-///          "type": "string"
-///        },
-///        "signingCertificate": {
-///          "title": "Validating X509 certificates",
-///          "description": "The public certificates Keycloak uses to validate the signatures of SAML requests and responses from the external IDP when Use metadata descriptor URL is OFF. Multiple certificates can be entered separated by comma (,). The certificates can be re-imported from the Metadata descriptor URL clicking the Import Keys action in the identity provider page. The action downloads the current certificates in the metadata endpoint and assigns them to the config in this same option. You need to click Save to definitely store the re-imported certificates.",
-///          "type": "string"
-///        },
-///        "singleSignOnServiceUrl": {
-///          "title": "Single Sign-On service URL",
-///          "description": "The Url that must be used to send authentication requests (SAML AuthnRequest).",
-///          "type": "string"
-///        },
-///        "syncMode": {
-///          "title": "Sync mode",
-///          "description": "Default sync mode for all mappers. The sync mode determines when user data will be synced using the mappers. Possible values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider.",
-///          "type": "string",
-///          "enum": [
-///            "IMPORT",
-///            "LEGACY",
-///            "FORCE"
-///          ]
-///        },
-///        "validateSignature": {
-///          "title": "Validate Signatures",
-///          "description": "Enable/disable signature validation of external IDP signatures.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "wantAssertionsEncrypted": {
-///          "title": "Want Assertions encrypted",
-///          "description": "Indicates whether this service provider expects an encrypted Assertion.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "wantAssertionsSigned": {
-///          "title": "Want Assertions signed",
-///          "description": "Indicates whether this service provider expects a signed Assertion.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "wantAuthnRequestsSigned": {
-///          "title": "Want AuthnRequests signed",
-///          "description": "Indicates whether the identity provider expects a signed AuthnRequest.",
-///          "type": "string",
-///          "enum": [
-///            "true",
-///            "false",
-///            ""
-///          ]
-///        },
-///        "xmlSigKeyInfoKeyNameTransformer": {
-///          "title": "SAML signature key name",
-///          "description": "Signed SAML documents contain identification of signing key in KeyName element. For Keycloak / RH-SSO counter-party, use KEY_ID, for MS AD FS use CERT_SUBJECT, for others check and use NONE if no other option works.",
-///          "type": "string",
-///          "enum": [
-///            "NONE",
-///            "KEY_ID",
-///            "CERT_SUBJECT"
-///          ]
-///        }
-///      },
 ///      "additionalProperties": {
 ///        "type": "string"
 ///      }
@@ -9308,13 +6169,11 @@ impl ::std::default::Default for IdentityProviderMapperTypeRepresentation {
 ///    "updateProfileFirstLoginMode": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct IdentityProviderRepresentation {
     ///Enable/disable if new users can read any stored tokens. This assigns the broker.read-token role.
     #[serde(
@@ -9332,8 +6191,14 @@ pub struct IdentityProviderRepresentation {
         skip_serializing_if = "::std::option::Option::is_none"
     )]
     pub authenticate_by_default: ::std::option::Option<bool>,
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub config: ::std::option::Option<IdentityProviderRepresentationConfig>,
+    #[serde(
+        default,
+        skip_serializing_if = ":: std :: collections :: BTreeMap::is_empty"
+    )]
+    pub config: ::std::collections::BTreeMap<
+        ::std::string::String,
+        ::std::string::String,
+    >,
     ///Friendly name for Identity Providers.
     #[serde(
         rename = "displayName",
@@ -9445,477 +6310,6 @@ impl ::std::default::Default for IdentityProviderRepresentation {
         }
     }
 }
-///IdentityProviderRepresentationConfig
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "object",
-///  "properties": {
-///    "allowCreate": {
-///      "title": "Allow create",
-///      "description": "Allow the external identity provider to create a new identifier to represent the principal.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "allowedClockSkew": {
-///      "title": "Allowed clock skew",
-///      "description": "Clock skew in seconds that is tolerated when validating identity provider tokens. Default value is zero.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "attributeConsumingServiceIndex": {
-///      "title": "Attribute Consuming Service Index",
-///      "description": "Index of the Attribute Consuming Service profile to request during authentication.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "authnContextClassRefs": {
-///      "title": "AuthnContext ClassRefs",
-///      "description": "Ordered list of requested AuthnContext ClassRefs.",
-///      "type": "string"
-///    },
-///    "authnContextComparisonType": {
-///      "title": "Comparison",
-///      "description": "Specifies the comparison method used to evaluate the requested context classes or statements. The default is \"Exact\".",
-///      "type": "string",
-///      "enum": [
-///        "exact",
-///        "minimum",
-///        "maximum",
-///        "better"
-///      ]
-///    },
-///    "authnContextDeclRefs": {
-///      "title": "AuthnContext DeclRefs",
-///      "description": "Ordered list of requested AuthnContext DeclRefs.",
-///      "type": "string"
-///    },
-///    "backchannelSupported": {
-///      "title": "Backchannel logout",
-///      "description": "Does the external IDP support backchannel logout?",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "encryptionAlgorithm": {
-///      "title": "Encryption Algorithm",
-///      "description": "Encryption algorithm, which is used by SAML IDP for encryption of SAML documents, assertions or IDs. The corresponding decryption key for decrypt SAML document parts will be chosen based on this configured algorithm and should be available in realm keys for the encryption (ENC) usage. If algorithm is not configured, then any supported algorithm is allowed and decryption key will be chosen based on the algorithm configured in SAML document itself.",
-///      "type": "string"
-///    },
-///    "entityId": {
-///      "title": "Service provider entity ID",
-///      "description": "The Entity ID that will be used to uniquely identify this SAML Service Provider.",
-///      "type": "string"
-///    },
-///    "forceAuthn": {
-///      "title": "Force authentication",
-///      "description": "Indicates whether the identity provider must authenticate the presenter directly rather than rely on a previous security context.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "hideOnLoginPage": {
-///      "title": "Hide on login page",
-///      "description": "If hidden, login with this provider is possible only if requested explicitly, for example using the 'kc_idp_hint' parameter.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "idpEntityId": {
-///      "title": "Identity provider entity ID",
-///      "description": "The Entity ID used to validate the Issuer for received SAML assertions. If empty, no Issuer validation is performed.",
-///      "type": "string"
-///    },
-///    "loginHint": {
-///      "title": "Pass subject",
-///      "description": "During login phase, forward an optional login_hint query parameter to SAML AuthnRequest's Subject.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "nameIDPolicyFormat": {
-///      "title": "NameID policy format",
-///      "description": "Specifies the URI reference corresponding to a name identifier format.",
-///      "type": "string"
-///    },
-///    "postBindingAuthnRequest": {
-///      "title": "HTTP-POST binding for AuthnRequest",
-///      "description": "Indicates whether the AuthnRequest must be sent using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "postBindingLogout": {
-///      "title": "HTTP-POST binding logout",
-///      "description": "Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "postBindingResponse": {
-///      "title": "HTTP-POST binding response",
-///      "description": "Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "principalAttribute": {
-///      "title": "Principal attribute",
-///      "description": "Name or Friendly Name of the attribute used to identify external users.",
-///      "type": "string"
-///    },
-///    "principalType": {
-///      "title": "Principal type",
-///      "description": "Way to identify and track external users from the assertion. Default is using Subject NameID, alternatively you can set up identifying attribute.",
-///      "type": "string",
-///      "enum": [
-///        "SUBJECT",
-///        "ATTRIBUTE",
-///        "FRIENDLY_ATTRIBUTE"
-///      ]
-///    },
-///    "signSpMetadata": {
-///      "title": "Sign service provider metadata",
-///      "description": "Enable/disable signature of the provider SAML metadata.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "signatureAlgorithm": {
-///      "title": "Signature algorithm",
-///      "description": "The signature algorithm to use to sign documents. Note that 'SHA1' based algorithms are deprecated and can be removed in the future. It is recommended to stick to some more secure algorithm instead of '*_SHA1'.",
-///      "type": "string"
-///    },
-///    "signingCertificate": {
-///      "title": "Validating X509 certificates",
-///      "description": "The public certificates Keycloak uses to validate the signatures of SAML requests and responses from the external IDP when Use metadata descriptor URL is OFF. Multiple certificates can be entered separated by comma (,). The certificates can be re-imported from the Metadata descriptor URL clicking the Import Keys action in the identity provider page. The action downloads the current certificates in the metadata endpoint and assigns them to the config in this same option. You need to click Save to definitely store the re-imported certificates.",
-///      "type": "string"
-///    },
-///    "singleSignOnServiceUrl": {
-///      "title": "Single Sign-On service URL",
-///      "description": "The Url that must be used to send authentication requests (SAML AuthnRequest).",
-///      "type": "string"
-///    },
-///    "syncMode": {
-///      "title": "Sync mode",
-///      "description": "Default sync mode for all mappers. The sync mode determines when user data will be synced using the mappers. Possible values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider.",
-///      "type": "string",
-///      "enum": [
-///        "IMPORT",
-///        "LEGACY",
-///        "FORCE"
-///      ]
-///    },
-///    "validateSignature": {
-///      "title": "Validate Signatures",
-///      "description": "Enable/disable signature validation of external IDP signatures.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "wantAssertionsEncrypted": {
-///      "title": "Want Assertions encrypted",
-///      "description": "Indicates whether this service provider expects an encrypted Assertion.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "wantAssertionsSigned": {
-///      "title": "Want Assertions signed",
-///      "description": "Indicates whether this service provider expects a signed Assertion.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "wantAuthnRequestsSigned": {
-///      "title": "Want AuthnRequests signed",
-///      "description": "Indicates whether the identity provider expects a signed AuthnRequest.",
-///      "type": "string",
-///      "enum": [
-///        "true",
-///        "false",
-///        ""
-///      ]
-///    },
-///    "xmlSigKeyInfoKeyNameTransformer": {
-///      "title": "SAML signature key name",
-///      "description": "Signed SAML documents contain identification of signing key in KeyName element. For Keycloak / RH-SSO counter-party, use KEY_ID, for MS AD FS use CERT_SUBJECT, for others check and use NONE if no other option works.",
-///      "type": "string",
-///      "enum": [
-///        "NONE",
-///        "KEY_ID",
-///        "CERT_SUBJECT"
-///      ]
-///    }
-///  },
-///  "additionalProperties": {
-///    "type": "string"
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-pub struct IdentityProviderRepresentationConfig {
-    ///Allow the external identity provider to create a new identifier to represent the principal.
-    #[serde(
-        rename = "allowCreate",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub allow_create: ::std::option::Option<AllowCreate>,
-    ///Clock skew in seconds that is tolerated when validating identity provider tokens. Default value is zero.
-    #[serde(
-        rename = "allowedClockSkew",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub allowed_clock_skew: ::std::option::Option<AllowedClockSkew>,
-    ///Index of the Attribute Consuming Service profile to request during authentication.
-    #[serde(
-        rename = "attributeConsumingServiceIndex",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub attribute_consuming_service_index: ::std::option::Option<
-        AttributeConsumingServiceIndex,
-    >,
-    ///Ordered list of requested AuthnContext ClassRefs.
-    #[serde(
-        rename = "authnContextClassRefs",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub authn_context_class_refs: ::std::option::Option<::std::string::String>,
-    ///Specifies the comparison method used to evaluate the requested context classes or statements. The default is "Exact".
-    #[serde(
-        rename = "authnContextComparisonType",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub authn_context_comparison_type: ::std::option::Option<Comparison>,
-    ///Ordered list of requested AuthnContext DeclRefs.
-    #[serde(
-        rename = "authnContextDeclRefs",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub authn_context_decl_refs: ::std::option::Option<::std::string::String>,
-    ///Does the external IDP support backchannel logout?
-    #[serde(
-        rename = "backchannelSupported",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub backchannel_supported: ::std::option::Option<BackchannelLogout>,
-    ///Encryption algorithm, which is used by SAML IDP for encryption of SAML documents, assertions or IDs. The corresponding decryption key for decrypt SAML document parts will be chosen based on this configured algorithm and should be available in realm keys for the encryption (ENC) usage. If algorithm is not configured, then any supported algorithm is allowed and decryption key will be chosen based on the algorithm configured in SAML document itself.
-    #[serde(
-        rename = "encryptionAlgorithm",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub encryption_algorithm: ::std::option::Option<::std::string::String>,
-    ///The Entity ID that will be used to uniquely identify this SAML Service Provider.
-    #[serde(
-        rename = "entityId",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub entity_id: ::std::option::Option<::std::string::String>,
-    ///Indicates whether the identity provider must authenticate the presenter directly rather than rely on a previous security context.
-    #[serde(
-        rename = "forceAuthn",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub force_authn: ::std::option::Option<ForceAuthentication>,
-    ///If hidden, login with this provider is possible only if requested explicitly, for example using the 'kc_idp_hint' parameter.
-    #[serde(
-        rename = "hideOnLoginPage",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub hide_on_login_page: ::std::option::Option<HideOnLoginPage>,
-    ///The Entity ID used to validate the Issuer for received SAML assertions. If empty, no Issuer validation is performed.
-    #[serde(
-        rename = "idpEntityId",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub idp_entity_id: ::std::option::Option<::std::string::String>,
-    ///During login phase, forward an optional login_hint query parameter to SAML AuthnRequest's Subject.
-    #[serde(
-        rename = "loginHint",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub login_hint: ::std::option::Option<PassSubject>,
-    ///Specifies the URI reference corresponding to a name identifier format.
-    #[serde(
-        rename = "nameIDPolicyFormat",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub name_id_policy_format: ::std::option::Option<::std::string::String>,
-    ///Indicates whether the AuthnRequest must be sent using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.
-    #[serde(
-        rename = "postBindingAuthnRequest",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub post_binding_authn_request: ::std::option::Option<
-        HttpPostBindingForAuthnRequest,
-    >,
-    ///Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.
-    #[serde(
-        rename = "postBindingLogout",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub post_binding_logout: ::std::option::Option<HttpPostBindingLogout>,
-    ///Indicates whether to respond to requests using HTTP-POST binding. If false, HTTP-REDIRECT binding will be used.
-    #[serde(
-        rename = "postBindingResponse",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub post_binding_response: ::std::option::Option<HttpPostBindingResponse>,
-    ///Name or Friendly Name of the attribute used to identify external users.
-    #[serde(
-        rename = "principalAttribute",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub principal_attribute: ::std::option::Option<::std::string::String>,
-    ///Way to identify and track external users from the assertion. Default is using Subject NameID, alternatively you can set up identifying attribute.
-    #[serde(
-        rename = "principalType",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub principal_type: ::std::option::Option<PrincipalType>,
-    ///Enable/disable signature of the provider SAML metadata.
-    #[serde(
-        rename = "signSpMetadata",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub sign_sp_metadata: ::std::option::Option<SignServiceProviderMetadata>,
-    ///The signature algorithm to use to sign documents. Note that 'SHA1' based algorithms are deprecated and can be removed in the future. It is recommended to stick to some more secure algorithm instead of '*_SHA1'.
-    #[serde(
-        rename = "signatureAlgorithm",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub signature_algorithm: ::std::option::Option<::std::string::String>,
-    ///The public certificates Keycloak uses to validate the signatures of SAML requests and responses from the external IDP when Use metadata descriptor URL is OFF. Multiple certificates can be entered separated by comma (,). The certificates can be re-imported from the Metadata descriptor URL clicking the Import Keys action in the identity provider page. The action downloads the current certificates in the metadata endpoint and assigns them to the config in this same option. You need to click Save to definitely store the re-imported certificates.
-    #[serde(
-        rename = "signingCertificate",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub signing_certificate: ::std::option::Option<::std::string::String>,
-    ///The Url that must be used to send authentication requests (SAML AuthnRequest).
-    #[serde(
-        rename = "singleSignOnServiceUrl",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub single_sign_on_service_url: ::std::option::Option<::std::string::String>,
-    ///Default sync mode for all mappers. The sync mode determines when user data will be synced using the mappers. Possible values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider.
-    #[serde(
-        rename = "syncMode",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub sync_mode: ::std::option::Option<SyncMode>,
-    ///Enable/disable signature validation of external IDP signatures.
-    #[serde(
-        rename = "validateSignature",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub validate_signature: ::std::option::Option<ValidateSignatures>,
-    ///Indicates whether this service provider expects an encrypted Assertion.
-    #[serde(
-        rename = "wantAssertionsEncrypted",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub want_assertions_encrypted: ::std::option::Option<WantAssertionsEncrypted>,
-    ///Indicates whether this service provider expects a signed Assertion.
-    #[serde(
-        rename = "wantAssertionsSigned",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub want_assertions_signed: ::std::option::Option<WantAssertionsSigned>,
-    ///Indicates whether the identity provider expects a signed AuthnRequest.
-    #[serde(
-        rename = "wantAuthnRequestsSigned",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub want_authn_requests_signed: ::std::option::Option<WantAuthnRequestsSigned>,
-    ///Signed SAML documents contain identification of signing key in KeyName element. For Keycloak / RH-SSO counter-party, use KEY_ID, for MS AD FS use CERT_SUBJECT, for others check and use NONE if no other option works.
-    #[serde(
-        rename = "xmlSigKeyInfoKeyNameTransformer",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub xml_sig_key_info_key_name_transformer: ::std::option::Option<
-        SamlSignatureKeyName,
-    >,
-    #[serde(flatten)]
-    pub extra: ::std::collections::BTreeMap<
-        ::std::string::String,
-        ::std::string::String,
-    >,
-}
-impl ::std::convert::From<&IdentityProviderRepresentationConfig>
-for IdentityProviderRepresentationConfig {
-    fn from(value: &IdentityProviderRepresentationConfig) -> Self {
-        value.clone()
-    }
-}
 ///InstallationAdapterConfig
 ///
 /// <details><summary>JSON schema</summary>
@@ -9964,13 +6358,11 @@ for IdentityProviderRepresentationConfig {
 ///    "verify-token-audience": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct InstallationAdapterConfig {
     #[serde(
         rename = "auth-server-url",
@@ -10056,95 +6448,6 @@ impl ::std::default::Default for InstallationAdapterConfig {
         }
     }
 }
-///The minimum amount of time in seconds that the CD (Consumption Device) must wait between polling requests to the token endpoint. If set to 0, the CD must use 5 as the default value according to the CIBA specification.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Interval",
-///  "description": "The minimum amount of time in seconds that the CD (Consumption Device) must wait between polling requests to the token endpoint. If set to 0, the CD must use 5 as the default value according to the CIBA specification.",
-///  "type": "string",
-///  "pattern": "^[0-9]*$"
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Serialize,
-    Clone,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-#[serde(transparent)]
-pub struct Interval(::std::string::String);
-impl ::std::ops::Deref for Interval {
-    type Target = ::std::string::String;
-    fn deref(&self) -> &::std::string::String {
-        &self.0
-    }
-}
-impl ::std::convert::From<Interval> for ::std::string::String {
-    fn from(value: Interval) -> Self {
-        value.0
-    }
-}
-impl ::std::convert::From<&Interval> for Interval {
-    fn from(value: &Interval) -> Self {
-        value.clone()
-    }
-}
-impl ::std::str::FromStr for Interval {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        if regress::Regex::new("^[0-9]*$").unwrap().find(value).is_none() {
-            return Err("doesn't match pattern \"^[0-9]*$\"".into());
-        }
-        Ok(Self(value.to_string()))
-    }
-}
-impl ::std::convert::TryFrom<&str> for Interval {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for Interval {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for Interval {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl<'de> ::serde::Deserialize<'de> for Interval {
-    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
-    where
-        D: ::serde::Deserializer<'de>,
-    {
-        ::std::string::String::deserialize(deserializer)?
-            .parse()
-            .map_err(|e: self::error::ConversionError| {
-                <D::Error as ::serde::de::Error>::custom(e.to_string())
-            })
-    }
-}
 ///KeyMetadataRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -10189,13 +6492,11 @@ impl<'de> ::serde::Deserialize<'de> for Interval {
 ///      "maximum": 9.223372036854776e18,
 ///      "minimum": -9.223372036854776e18
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct KeyMetadataRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub algorithm: ::std::option::Option<::std::string::String>,
@@ -10289,13 +6590,11 @@ impl ::std::default::Default for KeyMetadataRepresentation {
 ///    "storePassword": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct KeyStoreConfig {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub format: ::std::option::Option<::std::string::String>,
@@ -10449,13 +6748,11 @@ impl ::std::convert::TryFrom<::std::string::String> for KeyUse {
 ///        "$ref": "#/$defs/KeyMetadataRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct KeysMetadataRepresentation {
     #[serde(
         default,
@@ -10583,13 +6880,11 @@ impl ::std::convert::TryFrom<::std::string::String> for Logic {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ManagementPermissionReference {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub enabled: ::std::option::Option<bool>,
@@ -10640,13 +6935,11 @@ impl ::std::default::Default for ManagementPermissionReference {
 ///        "$ref": "#/$defs/RoleRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct MappingsRepresentation {
     #[serde(
         rename = "clientMappings",
@@ -10821,13 +7114,11 @@ impl ::std::default::Default for MappingsRepresentation {
 ///    "username": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct MemberRepresentation {
     #[serde(
         default,
@@ -11114,13 +7405,11 @@ impl ::std::convert::TryFrom<::std::string::String> for MembershipType {
 ///    "scopes-enforcement-mode": {
 ///      "$ref": "#/$defs/ScopeEnforcementMode"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct MethodConfig {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub method: ::std::option::Option<::std::string::String>,
@@ -11281,99 +7570,6 @@ impl ::std::convert::From<
         >,
     ) -> Self {
         Self(value)
-    }
-}
-///This enables support for OAuth 2.0 Mutual TLS Certificate Bound Access Tokens, which means that keycloak bind an access token and a refresh token with a X.509 certificate of a token requesting client exchanged in mutual TLS between keycloak's Token Endpoint and this client. These tokens can be treated as Holder-of-Key tokens instead of bearer tokens.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "OAuth 2.0 Mutual TLS Certificate Bound Access Tokens Enabled",
-///  "description": "This enables support for OAuth 2.0 Mutual TLS Certificate Bound Access Tokens, which means that keycloak bind an access token and a refresh token with a X.509 certificate of a token requesting client exchanged in mutual TLS between keycloak's Token Endpoint and this client. These tokens can be treated as Holder-of-Key tokens instead of bearer tokens.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self>
-for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    fn from(value: &OAuth20MutualTlsCertificateBoundAccessTokensEnabled) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str>
-for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///OAuthClientRepresentation
@@ -11563,13 +7759,11 @@ for OAuth20MutualTlsCertificateBoundAccessTokensEnabled {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct OAuthClientRepresentation {
     #[serde(
         default,
@@ -11884,13 +8078,11 @@ impl ::std::default::Default for OAuthClientRepresentation {
 ///    "verified": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct OrganizationDomainRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub name: ::std::option::Option<::std::string::String>,
@@ -11965,13 +8157,11 @@ impl ::std::default::Default for OrganizationDomainRepresentation {
 ///    "redirectUrl": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct OrganizationRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub alias: ::std::option::Option<::std::string::String>,
@@ -12113,95 +8303,6 @@ impl ::std::convert::TryFrom<::std::string::String> for OtpType {
         value.parse()
     }
 }
-///During login phase, forward an optional login_hint query parameter to SAML AuthnRequest's Subject.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Pass subject",
-///  "description": "During login phase, forward an optional login_hint query parameter to SAML AuthnRequest's Subject.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum PassSubject {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for PassSubject {
-    fn from(value: &PassSubject) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for PassSubject {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for PassSubject {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for PassSubject {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for PassSubject {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for PassSubject {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 ///PathCacheConfig
 ///
 /// <details><summary>JSON schema</summary>
@@ -12222,13 +8323,11 @@ impl ::std::convert::TryFrom<::std::string::String> for PassSubject {
 ///      "maximum": 2147483647.0,
 ///      "minimum": -2147483648.0
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PathCacheConfig {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub lifespan: ::std::option::Option<i64>,
@@ -12303,13 +8402,11 @@ impl ::std::default::Default for PathCacheConfig {
 ///    "type": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PathConfig {
     #[serde(
         rename = "claim-information-point",
@@ -12410,13 +8507,11 @@ impl ::std::default::Default for PathConfig {
 ///      },
 ///      "uniqueItems": true
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct Permission {
     #[serde(
         default,
@@ -12587,13 +8682,11 @@ impl ::std::convert::TryFrom<::std::string::String> for PolicyEnforcementMode {
 ///    "user-managed-access": {
 ///      "$ref": "#/$defs/UserManagedAccessConfig"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PolicyEnforcerConfig {
     #[serde(
         rename = "auth-server-url",
@@ -12716,13 +8809,11 @@ impl ::std::default::Default for PolicyEnforcerConfig {
 ///    "userId": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PolicyEvaluationRequest {
     #[serde(
         rename = "clientId",
@@ -12795,13 +8886,11 @@ impl ::std::default::Default for PolicyEvaluationRequest {
 ///    "status": {
 ///      "$ref": "#/$defs/DecisionEffect"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PolicyEvaluationResponse {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub entitlements: ::std::option::Option<bool>,
@@ -12844,13 +8933,11 @@ impl ::std::default::Default for PolicyEvaluationResponse {
 ///    "type": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PolicyProviderRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub group: ::std::option::Option<::std::string::String>,
@@ -12951,13 +9038,11 @@ impl ::std::default::Default for PolicyProviderRepresentation {
 ///    "type": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PolicyRepresentation {
     #[serde(
         default,
@@ -13066,13 +9151,11 @@ impl ::std::default::Default for PolicyRepresentation {
 ///    "status": {
 ///      "$ref": "#/$defs/DecisionEffect"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PolicyResultRepresentation {
     #[serde(
         rename = "associatedPolicies",
@@ -13102,95 +9185,6 @@ impl ::std::default::Default for PolicyResultRepresentation {
         }
     }
 }
-///Way to identify and track external users from the assertion. Default is using Subject NameID, alternatively you can set up identifying attribute.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Principal type",
-///  "description": "Way to identify and track external users from the assertion. Default is using Subject NameID, alternatively you can set up identifying attribute.",
-///  "type": "string",
-///  "enum": [
-///    "SUBJECT",
-///    "ATTRIBUTE",
-///    "FRIENDLY_ATTRIBUTE"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum PrincipalType {
-    #[serde(rename = "SUBJECT")]
-    Subject,
-    #[serde(rename = "ATTRIBUTE")]
-    Attribute,
-    #[serde(rename = "FRIENDLY_ATTRIBUTE")]
-    FriendlyAttribute,
-}
-impl ::std::convert::From<&Self> for PrincipalType {
-    fn from(value: &PrincipalType) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for PrincipalType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Subject => write!(f, "SUBJECT"),
-            Self::Attribute => write!(f, "ATTRIBUTE"),
-            Self::FriendlyAttribute => write!(f, "FRIENDLY_ATTRIBUTE"),
-        }
-    }
-}
-impl ::std::str::FromStr for PrincipalType {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "SUBJECT" => Ok(Self::Subject),
-            "ATTRIBUTE" => Ok(Self::Attribute),
-            "FRIENDLY_ATTRIBUTE" => Ok(Self::FriendlyAttribute),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for PrincipalType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for PrincipalType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for PrincipalType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 ///PropertyConfig
 ///
 /// <details><summary>JSON schema</summary>
@@ -13203,13 +9197,11 @@ impl ::std::convert::TryFrom<::std::string::String> for PrincipalType {
 ///      "type": "boolean"
 ///    },
 ///    "value": {}
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PropertyConfig {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub applicable: ::std::option::Option<bool>,
@@ -13255,13 +9247,11 @@ impl ::std::default::Default for PropertyConfig {
 ///    "protocolMapper": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ProtocolMapperEvaluationRepresentation {
     #[serde(
         rename = "containerId",
@@ -13354,13 +9344,11 @@ impl ::std::default::Default for ProtocolMapperEvaluationRepresentation {
 ///    "protocolMapper": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ProtocolMapperRepresentation {
     #[serde(
         default,
@@ -13524,13 +9512,11 @@ for ProtocolMapperRepresentationProtocol {
 ///      "maximum": 2147483647.0,
 ///      "minimum": -2147483648.0
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct PublishedRealmRepresentation {
     #[serde(
         rename = "account-service",
@@ -13572,97 +9558,6 @@ impl ::std::default::Default for PublishedRealmRepresentation {
         }
     }
 }
-///Boolean parameter indicating whether the authorization server accepts authorization request data only via the pushed authorization request method.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Pushed authorization request required",
-///  "description": "Boolean parameter indicating whether the authorization server accepts authorization request data only via the pushed authorization request method.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum PushedAuthorizationRequestRequired {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for PushedAuthorizationRequestRequired {
-    fn from(value: &PushedAuthorizationRequestRequired) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for PushedAuthorizationRequestRequired {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for PushedAuthorizationRequestRequired {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for PushedAuthorizationRequestRequired {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for PushedAuthorizationRequestRequired {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for PushedAuthorizationRequestRequired {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 ///RealmEventsConfigRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -13698,13 +9593,11 @@ for PushedAuthorizationRequestRequired {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RealmEventsConfigRepresentation {
     #[serde(
         rename = "adminEventsDetailsEnabled",
@@ -13867,48 +9760,6 @@ impl ::std::default::Default for RealmEventsConfigRepresentation {
 ///    },
 ///    "attributes": {
 ///      "type": "object",
-///      "properties": {
-///        "adminEventsExpiration": {
-///          "title": "Expiration",
-///          "description": "Sets the expiration for events. Expired events are periodically deleted from the database.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "cibaAuthRequestedUserHint": {
-///          "title": "Authentication Requested User Hint",
-///          "description": "The way of identifying the end-user for whom authentication is being requested. Currently only \"login_hint\" is supported.",
-///          "type": "string",
-///          "enum": [
-///            "login_hint"
-///          ]
-///        },
-///        "cibaBackchannelTokenDeliveryMode": {
-///          "title": "Backchannel Token Delivery Mode",
-///          "description": "Specifies how the CD (Consumption Device) gets the authentication result and related tokens. This mode will be used by default for the CIBA clients, which do not have other mode explicitly set.",
-///          "type": "string",
-///          "enum": [
-///            "ping",
-///            "poll"
-///          ]
-///        },
-///        "cibaExpiresIn": {
-///          "title": "Expires In",
-///          "description": "The expiration time of the \"auth_req_id\" in seconds since the authentication request was received.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "cibaInterval": {
-///          "title": "Interval",
-///          "description": "The minimum amount of time in seconds that the CD (Consumption Device) must wait between polling requests to the token endpoint. If set to 0, the CD must use 5 as the default value according to the CIBA specification.",
-///          "type": "string",
-///          "pattern": "^[0-9]*$"
-///        },
-///        "frontendUrl": {
-///          "title": "Frontend URL",
-///          "description": "Set the frontend URL for the realm. Use in combination with the default hostname provider to override the base URL for frontend requests for a specific realm.",
-///          "type": "string"
-///        }
-///      },
 ///      "additionalProperties": {
 ///        "type": "string"
 ///      }
@@ -13966,11 +9817,7 @@ impl ::std::default::Default for RealmEventsConfigRepresentation {
 ///          "description": "This header configures the Cross-site scripting (XSS) filter in your browser. Using the default behaviour, the browser will prevent rendering of the page when a XSS attack is detected. <1>Learn more</1>",
 ///          "type": "string"
 ///        }
-///      },
-///      "additionalProperties": false
-///    },
-///    "bruteForceDetection": {
-///      "title": "Brute force detection"
+///      }
 ///    },
 ///    "bruteForceProtected": {
 ///      "type": "boolean"
@@ -14554,8 +10401,7 @@ impl ::std::default::Default for RealmEventsConfigRepresentation {
 ///          "title": "Username",
 ///          "type": "string"
 ///        }
-///      },
-///      "additionalProperties": false
+///      }
 ///    },
 ///    "social": {
 ///      "type": "boolean"
@@ -14855,13 +10701,11 @@ impl ::std::default::Default for RealmEventsConfigRepresentation {
 ///        "discouraged"
 ///      ]
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RealmRepresentation {
     ///Max time a client has to finish the access token protocol. This should normally be 1 minute.
     #[serde(
@@ -14962,8 +10806,14 @@ pub struct RealmRepresentation {
     >,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub applications: ::std::vec::Vec<ApplicationRepresentation>,
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub attributes: ::std::option::Option<RealmRepresentationAttributes>,
+    #[serde(
+        default,
+        skip_serializing_if = ":: std :: collections :: BTreeMap::is_empty"
+    )]
+    pub attributes: ::std::collections::BTreeMap<
+        ::std::string::String,
+        ::std::string::String,
+    >,
     #[serde(
         rename = "authenticationFlows",
         default,
@@ -14990,12 +10840,6 @@ pub struct RealmRepresentation {
     pub browser_security_headers: ::std::option::Option<
         RealmRepresentationBrowserSecurityHeaders,
     >,
-    #[serde(
-        rename = "bruteForceDetection",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub brute_force_detection: ::std::option::Option<::serde_json::Value>,
     #[serde(
         rename = "bruteForceProtected",
         default,
@@ -15870,7 +11714,6 @@ impl ::std::default::Default for RealmRepresentation {
             authenticator_config: Default::default(),
             browser_flow: Default::default(),
             browser_security_headers: Default::default(),
-            brute_force_detection: Default::default(),
             brute_force_protected: Default::default(),
             brute_force_strategy: Default::default(),
             certificate: Default::default(),
@@ -16005,121 +11848,6 @@ impl ::std::default::Default for RealmRepresentation {
         }
     }
 }
-///RealmRepresentationAttributes
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "object",
-///  "properties": {
-///    "adminEventsExpiration": {
-///      "title": "Expiration",
-///      "description": "Sets the expiration for events. Expired events are periodically deleted from the database.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "cibaAuthRequestedUserHint": {
-///      "title": "Authentication Requested User Hint",
-///      "description": "The way of identifying the end-user for whom authentication is being requested. Currently only \"login_hint\" is supported.",
-///      "type": "string",
-///      "enum": [
-///        "login_hint"
-///      ]
-///    },
-///    "cibaBackchannelTokenDeliveryMode": {
-///      "title": "Backchannel Token Delivery Mode",
-///      "description": "Specifies how the CD (Consumption Device) gets the authentication result and related tokens. This mode will be used by default for the CIBA clients, which do not have other mode explicitly set.",
-///      "type": "string",
-///      "enum": [
-///        "ping",
-///        "poll"
-///      ]
-///    },
-///    "cibaExpiresIn": {
-///      "title": "Expires In",
-///      "description": "The expiration time of the \"auth_req_id\" in seconds since the authentication request was received.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "cibaInterval": {
-///      "title": "Interval",
-///      "description": "The minimum amount of time in seconds that the CD (Consumption Device) must wait between polling requests to the token endpoint. If set to 0, the CD must use 5 as the default value according to the CIBA specification.",
-///      "type": "string",
-///      "pattern": "^[0-9]*$"
-///    },
-///    "frontendUrl": {
-///      "title": "Frontend URL",
-///      "description": "Set the frontend URL for the realm. Use in combination with the default hostname provider to override the base URL for frontend requests for a specific realm.",
-///      "type": "string"
-///    }
-///  },
-///  "additionalProperties": {
-///    "type": "string"
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-pub struct RealmRepresentationAttributes {
-    ///Sets the expiration for events. Expired events are periodically deleted from the database.
-    #[serde(
-        rename = "adminEventsExpiration",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub admin_events_expiration: ::std::option::Option<Expiration>,
-    ///The way of identifying the end-user for whom authentication is being requested. Currently only "login_hint" is supported.
-    #[serde(
-        rename = "cibaAuthRequestedUserHint",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub ciba_auth_requested_user_hint: ::std::option::Option<
-        AuthenticationRequestedUserHint,
-    >,
-    ///Specifies how the CD (Consumption Device) gets the authentication result and related tokens. This mode will be used by default for the CIBA clients, which do not have other mode explicitly set.
-    #[serde(
-        rename = "cibaBackchannelTokenDeliveryMode",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub ciba_backchannel_token_delivery_mode: ::std::option::Option<
-        BackchannelTokenDeliveryMode,
-    >,
-    ///The expiration time of the "auth_req_id" in seconds since the authentication request was received.
-    #[serde(
-        rename = "cibaExpiresIn",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub ciba_expires_in: ::std::option::Option<ExpiresIn>,
-    ///The minimum amount of time in seconds that the CD (Consumption Device) must wait between polling requests to the token endpoint. If set to 0, the CD must use 5 as the default value according to the CIBA specification.
-    #[serde(
-        rename = "cibaInterval",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub ciba_interval: ::std::option::Option<Interval>,
-    ///Set the frontend URL for the realm. Use in combination with the default hostname provider to override the base URL for frontend requests for a specific realm.
-    #[serde(
-        rename = "frontendUrl",
-        default,
-        skip_serializing_if = "::std::option::Option::is_none"
-    )]
-    pub frontend_url: ::std::option::Option<::std::string::String>,
-    #[serde(flatten)]
-    pub extra: ::std::collections::BTreeMap<
-        ::std::string::String,
-        ::std::string::String,
-    >,
-}
-impl ::std::convert::From<&RealmRepresentationAttributes>
-for RealmRepresentationAttributes {
-    fn from(value: &RealmRepresentationAttributes) -> Self {
-        value.clone()
-    }
-}
 ///RealmRepresentationBrowserSecurityHeaders
 ///
 /// <details><summary>JSON schema</summary>
@@ -16163,13 +11891,11 @@ for RealmRepresentationAttributes {
 ///      "description": "This header configures the Cross-site scripting (XSS) filter in your browser. Using the default behaviour, the browser will prevent rendering of the page when a XSS attack is detected. <1>Learn more</1>",
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RealmRepresentationBrowserSecurityHeaders {
     ///Default value prevents pages from being included by non-origin iframes. <1>Learn more</1>
     #[serde(
@@ -16317,13 +12043,11 @@ impl ::std::default::Default for RealmRepresentationBrowserSecurityHeaders {
 ///      "title": "Username",
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RealmRepresentationSmtpServer {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub auth: ::std::option::Option<Authentication>,
@@ -16584,13 +12308,11 @@ impl ::std::convert::TryFrom<::std::string::String> for RequireSsl {
 ///        "$ref": "#/$defs/ConfigPropertyRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RequiredActionConfigInfoRepresentation {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub properties: ::std::vec::Vec<ConfigPropertyRepresentation>,
@@ -16622,13 +12344,11 @@ impl ::std::default::Default for RequiredActionConfigInfoRepresentation {
 ///        "type": "string"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RequiredActionConfigRepresentation {
     #[serde(
         default,
@@ -16685,13 +12405,11 @@ impl ::std::default::Default for RequiredActionConfigRepresentation {
 ///    "providerId": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RequiredActionProviderRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub alias: ::std::option::Option<::std::string::String>,
@@ -16755,13 +12473,11 @@ impl ::std::default::Default for RequiredActionProviderRepresentation {
 ///    "name": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ResourceOwnerRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub id: ::std::option::Option<::std::string::String>,
@@ -16848,13 +12564,11 @@ impl ::std::default::Default for ResourceOwnerRepresentation {
 ///      },
 ///      "uniqueItems": true
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ResourceRepresentation {
     #[serde(
         default,
@@ -16977,13 +12691,11 @@ impl ::std::default::Default for ResourceRepresentation {
 ///        "$ref": "#/$defs/ScopeRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ResourceServerRepresentation {
     #[serde(
         rename = "allowRemoteResourceManagement",
@@ -17066,13 +12778,11 @@ impl ::std::default::Default for ResourceServerRepresentation {
 ///    "type": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ResourceType {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub scopes: ::std::option::Option<Vec<::std::string::String>>,
@@ -17137,13 +12847,11 @@ impl ::std::default::Default for ResourceType {
 ///    "scopeParamRequired": {
 ///      "type": "boolean"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RoleRepresentation {
     #[serde(
         default,
@@ -17234,13 +12942,11 @@ impl ::std::default::Default for RoleRepresentation {
 ///        "$ref": "#/$defs/RoleRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct RolesRepresentation {
     #[serde(
         default,
@@ -17273,95 +12979,6 @@ impl ::std::default::Default for RolesRepresentation {
             client: Default::default(),
             realm: Default::default(),
         }
-    }
-}
-///Signed SAML documents contain identification of signing key in KeyName element. For Keycloak / RH-SSO counter-party, use KEY_ID, for MS AD FS use CERT_SUBJECT, for others check and use NONE if no other option works.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "SAML signature key name",
-///  "description": "Signed SAML documents contain identification of signing key in KeyName element. For Keycloak / RH-SSO counter-party, use KEY_ID, for MS AD FS use CERT_SUBJECT, for others check and use NONE if no other option works.",
-///  "type": "string",
-///  "enum": [
-///    "NONE",
-///    "KEY_ID",
-///    "CERT_SUBJECT"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum SamlSignatureKeyName {
-    #[serde(rename = "NONE")]
-    None,
-    #[serde(rename = "KEY_ID")]
-    KeyId,
-    #[serde(rename = "CERT_SUBJECT")]
-    CertSubject,
-}
-impl ::std::convert::From<&Self> for SamlSignatureKeyName {
-    fn from(value: &SamlSignatureKeyName) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for SamlSignatureKeyName {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::None => write!(f, "NONE"),
-            Self::KeyId => write!(f, "KEY_ID"),
-            Self::CertSubject => write!(f, "CERT_SUBJECT"),
-        }
-    }
-}
-impl ::std::str::FromStr for SamlSignatureKeyName {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "NONE" => Ok(Self::None),
-            "KEY_ID" => Ok(Self::KeyId),
-            "CERT_SUBJECT" => Ok(Self::CertSubject),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for SamlSignatureKeyName {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for SamlSignatureKeyName {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for SamlSignatureKeyName {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///ScopeEnforcementMode
@@ -17478,13 +13095,11 @@ impl ::std::convert::TryFrom<::std::string::String> for ScopeEnforcementMode {
 ///    "self": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ScopeMappingRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub client: ::std::option::Option<::std::string::String>,
@@ -17557,13 +13172,11 @@ impl ::std::default::Default for ScopeMappingRepresentation {
 ///        "$ref": "#/$defs/ResourceRepresentation"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct ScopeRepresentation {
     #[serde(
         rename = "displayName",
@@ -17601,95 +13214,6 @@ impl ::std::default::Default for ScopeRepresentation {
             policies: Default::default(),
             resources: Default::default(),
         }
-    }
-}
-///Enable/disable signature of the provider SAML metadata.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Sign service provider metadata",
-///  "description": "Enable/disable signature of the provider SAML metadata.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum SignServiceProviderMetadata {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for SignServiceProviderMetadata {
-    fn from(value: &SignServiceProviderMetadata) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for SignServiceProviderMetadata {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for SignServiceProviderMetadata {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for SignServiceProviderMetadata {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for SignServiceProviderMetadata {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for SignServiceProviderMetadata {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///SignatureAlgorithmsItem
@@ -17820,13 +13344,11 @@ impl ::std::convert::TryFrom<::std::string::String> for SignatureAlgorithmsItem 
 ///    "socialUsername": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct SocialLinkRepresentation {
     #[serde(
         rename = "socialProvider",
@@ -17859,189 +13381,6 @@ impl ::std::default::Default for SocialLinkRepresentation {
             social_user_id: Default::default(),
             social_username: Default::default(),
         }
-    }
-}
-///Default sync mode for all mappers. The sync mode determines when user data will be synced using the mappers. Possible values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Sync mode",
-///  "description": "Default sync mode for all mappers. The sync mode determines when user data will be synced using the mappers. Possible values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider.",
-///  "type": "string",
-///  "enum": [
-///    "IMPORT",
-///    "LEGACY",
-///    "FORCE"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum SyncMode {
-    #[serde(rename = "IMPORT")]
-    Import,
-    #[serde(rename = "LEGACY")]
-    Legacy,
-    #[serde(rename = "FORCE")]
-    Force,
-}
-impl ::std::convert::From<&Self> for SyncMode {
-    fn from(value: &SyncMode) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for SyncMode {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Import => write!(f, "IMPORT"),
-            Self::Legacy => write!(f, "LEGACY"),
-            Self::Force => write!(f, "FORCE"),
-        }
-    }
-}
-impl ::std::str::FromStr for SyncMode {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "IMPORT" => Ok(Self::Import),
-            "LEGACY" => Ok(Self::Legacy),
-            "FORCE" => Ok(Self::Force),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for SyncMode {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for SyncMode {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for SyncMode {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Overrides the default sync mode of the IDP for this mapper. Values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider and 'inherit' to use the sync mode defined in the identity provider for this mapper.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Sync mode override",
-///  "description": "Overrides the default sync mode of the IDP for this mapper. Values are: 'legacy' to keep the behaviour before this option was introduced, 'import' to only import the user once during first login of the user with this identity provider, 'force' to always update the user during every login with this identity provider and 'inherit' to use the sync mode defined in the identity provider for this mapper.",
-///  "type": "string",
-///  "enum": [
-///    "INHERIT",
-///    "IMPORT",
-///    "LEGACY",
-///    "FORCE"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum SyncModeOverride {
-    #[serde(rename = "INHERIT")]
-    Inherit,
-    #[serde(rename = "IMPORT")]
-    Import,
-    #[serde(rename = "LEGACY")]
-    Legacy,
-    #[serde(rename = "FORCE")]
-    Force,
-}
-impl ::std::convert::From<&Self> for SyncModeOverride {
-    fn from(value: &SyncModeOverride) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for SyncModeOverride {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Inherit => write!(f, "INHERIT"),
-            Self::Import => write!(f, "IMPORT"),
-            Self::Legacy => write!(f, "LEGACY"),
-            Self::Force => write!(f, "FORCE"),
-        }
-    }
-}
-impl ::std::str::FromStr for SyncModeOverride {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "INHERIT" => Ok(Self::Inherit),
-            "IMPORT" => Ok(Self::Import),
-            "LEGACY" => Ok(Self::Legacy),
-            "FORCE" => Ok(Self::Force),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for SyncModeOverride {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for SyncModeOverride {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for SyncModeOverride {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///UnmanagedAttributePolicy
@@ -18171,13 +13510,11 @@ impl ::std::convert::TryFrom<::std::string::String> for UnmanagedAttributePolicy
 ///        "additionalProperties": {}
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UpAttribute {
     #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
     pub annotations: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -18250,13 +13587,11 @@ impl ::std::default::Default for UpAttribute {
 ///      },
 ///      "uniqueItems": true
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UpAttributePermissions {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub edit: ::std::option::Option<Vec<::std::string::String>>,
@@ -18298,13 +13633,11 @@ impl ::std::default::Default for UpAttributePermissions {
 ///      },
 ///      "uniqueItems": true
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UpAttributeRequired {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub roles: ::std::option::Option<Vec<::std::string::String>>,
@@ -18339,13 +13672,11 @@ impl ::std::default::Default for UpAttributeRequired {
 ///      },
 ///      "uniqueItems": true
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UpAttributeSelector {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub scopes: ::std::option::Option<Vec<::std::string::String>>,
@@ -18383,13 +13714,11 @@ impl ::std::default::Default for UpAttributeSelector {
 ///    "unmanagedAttributePolicy": {
 ///      "$ref": "#/$defs/UnmanagedAttributePolicy"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UpConfig {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub attributes: ::std::vec::Vec<UpAttribute>,
@@ -18437,13 +13766,11 @@ impl ::std::default::Default for UpConfig {
 ///    "name": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UpGroup {
     #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
     pub annotations: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -18475,277 +13802,6 @@ impl ::std::default::Default for UpGroup {
             display_header: Default::default(),
             name: Default::default(),
         }
-    }
-}
-///If this is on, token responses will be set the with the type "bearer" in lower-case. By default, the server sets the type as "Bearer" as defined by RFC6750.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Use lower-case bearer type in token responses",
-///  "description": "If this is on, token responses will be set the with the type \"bearer\" in lower-case. By default, the server sets the type as \"Bearer\" as defined by RFC6750.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum UseLowerCaseBearerTypeInTokenResponses {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for UseLowerCaseBearerTypeInTokenResponses {
-    fn from(value: &UseLowerCaseBearerTypeInTokenResponses) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for UseLowerCaseBearerTypeInTokenResponses {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for UseLowerCaseBearerTypeInTokenResponses {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for UseLowerCaseBearerTypeInTokenResponses {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for UseLowerCaseBearerTypeInTokenResponses {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for UseLowerCaseBearerTypeInTokenResponses {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///If this is on, a refresh_token will be created and added to the token response. If this is off then no refresh_token will be generated.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Use refresh tokens",
-///  "description": "If this is on, a refresh_token will be created and added to the token response. If this is off then no refresh_token will be generated.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum UseRefreshTokens {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for UseRefreshTokens {
-    fn from(value: &UseRefreshTokens) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for UseRefreshTokens {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for UseRefreshTokens {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for UseRefreshTokens {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for UseRefreshTokens {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for UseRefreshTokens {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///If this is on, a refresh_token will be created and added to the token response if the client_credentials grant is used. The OAuth 2.0 RFC6749 Section 4.4.3 states that a refresh_token should not be generated when client_credentials grant is used. If this is off then no refresh_token will be generated and the associated user session will be removed.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Use refresh tokens for client credentials grant",
-///  "description": "If this is on, a refresh_token will be created and added to the token response if the client_credentials grant is used. The OAuth 2.0 RFC6749 Section 4.4.3 states that a refresh_token should not be generated when client_credentials grant is used. If this is off then no refresh_token will be generated and the associated user session will be removed.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum UseRefreshTokensForClientCredentialsGrant {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for UseRefreshTokensForClientCredentialsGrant {
-    fn from(value: &UseRefreshTokensForClientCredentialsGrant) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for UseRefreshTokensForClientCredentialsGrant {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for UseRefreshTokensForClientCredentialsGrant {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for UseRefreshTokensForClientCredentialsGrant {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for UseRefreshTokensForClientCredentialsGrant {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for UseRefreshTokensForClientCredentialsGrant {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
     }
 }
 ///UserConsentRepresentation
@@ -18783,13 +13839,11 @@ for UseRefreshTokensForClientCredentialsGrant {
 ///      "maximum": 9.223372036854776e18,
 ///      "minimum": -9.223372036854776e18
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserConsentRepresentation {
     #[serde(
         rename = "clientId",
@@ -18864,13 +13918,11 @@ impl ::std::default::Default for UserConsentRepresentation {
 ///    "name": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserFederationMapperRepresentation {
     #[serde(
         default,
@@ -18961,13 +14013,11 @@ impl ::std::default::Default for UserFederationMapperRepresentation {
 ///    "providerName": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserFederationProviderRepresentation {
     #[serde(
         rename = "changedSyncPeriod",
@@ -19093,13 +14143,11 @@ for UserManagedAccessConfig {
 ///    "name": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserProfileAttributeGroupMetadata {
     #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
     pub annotations: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -19171,13 +14219,11 @@ impl ::std::default::Default for UserProfileAttributeGroupMetadata {
 ///        "additionalProperties": {}
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserProfileAttributeMetadata {
     #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
     pub annotations: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -19250,13 +14296,11 @@ impl ::std::default::Default for UserProfileAttributeMetadata {
 ///        "$ref": "#/$defs/UserProfileAttributeGroupMetadata"
 ///      }
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserProfileMetadata {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub attributes: ::std::vec::Vec<UserProfileAttributeMetadata>,
@@ -19417,13 +14461,11 @@ impl ::std::default::Default for UserProfileMetadata {
 ///    "username": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserRepresentation {
     #[serde(
         default,
@@ -19645,13 +14687,11 @@ impl ::std::default::Default for UserRepresentation {
 ///    "username": {
 ///      "type": "string"
 ///    }
-///  },
-///  "additionalProperties": false
+///  }
 ///}
 /// ```
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
-#[serde(deny_unknown_fields)]
 pub struct UserSessionRepresentation {
     #[serde(
         default,
@@ -19805,362 +14845,6 @@ impl ::std::convert::TryFrom<&::std::string::String> for UserVerificationRequire
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for UserVerificationRequirement {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Enable/disable signature validation of external IDP signatures.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Validate Signatures",
-///  "description": "Enable/disable signature validation of external IDP signatures.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum ValidateSignatures {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for ValidateSignatures {
-    fn from(value: &ValidateSignatures) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for ValidateSignatures {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for ValidateSignatures {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for ValidateSignatures {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for ValidateSignatures {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for ValidateSignatures {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Indicates whether this service provider expects an encrypted Assertion.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Want Assertions encrypted",
-///  "description": "Indicates whether this service provider expects an encrypted Assertion.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum WantAssertionsEncrypted {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for WantAssertionsEncrypted {
-    fn from(value: &WantAssertionsEncrypted) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for WantAssertionsEncrypted {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for WantAssertionsEncrypted {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for WantAssertionsEncrypted {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for WantAssertionsEncrypted {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for WantAssertionsEncrypted {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Indicates whether this service provider expects a signed Assertion.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Want Assertions signed",
-///  "description": "Indicates whether this service provider expects a signed Assertion.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum WantAssertionsSigned {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for WantAssertionsSigned {
-    fn from(value: &WantAssertionsSigned) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for WantAssertionsSigned {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for WantAssertionsSigned {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for WantAssertionsSigned {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for WantAssertionsSigned {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for WantAssertionsSigned {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-///Indicates whether the identity provider expects a signed AuthnRequest.
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Want AuthnRequests signed",
-///  "description": "Indicates whether the identity provider expects a signed AuthnRequest.",
-///  "type": "string",
-///  "enum": [
-///    "true",
-///    "false",
-///    ""
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::schemars::JsonSchema,
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum WantAuthnRequestsSigned {
-    #[serde(rename = "true")]
-    True,
-    #[serde(rename = "false")]
-    False,
-    #[serde(rename = "")]
-    X,
-}
-impl ::std::convert::From<&Self> for WantAuthnRequestsSigned {
-    fn from(value: &WantAuthnRequestsSigned) -> Self {
-        value.clone()
-    }
-}
-impl ::std::fmt::Display for WantAuthnRequestsSigned {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::True => write!(f, "true"),
-            Self::False => write!(f, "false"),
-            Self::X => write!(f, ""),
-        }
-    }
-}
-impl ::std::str::FromStr for WantAuthnRequestsSigned {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "true" => Ok(Self::True),
-            "false" => Ok(Self::False),
-            "" => Ok(Self::X),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for WantAuthnRequestsSigned {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for WantAuthnRequestsSigned {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for WantAuthnRequestsSigned {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,

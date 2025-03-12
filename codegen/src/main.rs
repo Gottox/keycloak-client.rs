@@ -1,8 +1,10 @@
 //mod openapi_util;
+mod schema_utils;
 
 //use case_style::CaseStyle;
 use clap::Parser;
 use reqwest::blocking::Client;
+use schema_utils::cleanup_schema;
 use schemars::schema::RootSchema;
 use std::{
     fs::{self, File},
@@ -77,7 +79,12 @@ fn update(version: &str) -> Result<(), Box<dyn std::error::Error>> {
 fn generate_schema(version: &str) -> Result<(), Box<dyn std::error::Error>> {
     let path = schema_path(version);
     let generated_file = format!("{GENERATE_DIR}/schema_gen.rs",);
-    let schema: RootSchema = serde_json::from_reader(&File::open(path)?)?;
+    let mut schema: RootSchema = serde_json::from_reader(&File::open(path)?)?;
+
+    for schema in schema.definitions.values_mut() {
+        cleanup_schema(schema);
+    }
+
     let mut type_space = TypeSpace::new(
         TypeSpaceSettings::default()
             .with_map_type("::std::collections::BTreeMap")
