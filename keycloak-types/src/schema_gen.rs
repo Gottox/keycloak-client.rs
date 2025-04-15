@@ -625,6 +625,9 @@ impl ::std::default::Default for AddressClaimSet {
 ///    "error": {
 ///      "type": "string"
 ///    },
+///    "id": {
+///      "type": "string"
+///    },
 ///    "operationType": {
 ///      "type": "string"
 ///    },
@@ -668,6 +671,8 @@ pub struct AdminEventRepresentation {
     >,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub error: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub id: ::std::option::Option<::std::string::String>,
     #[serde(
         rename = "operationType",
         default,
@@ -708,6 +713,7 @@ impl ::std::default::Default for AdminEventRepresentation {
             auth_details: Default::default(),
             details: Default::default(),
             error: Default::default(),
+            id: Default::default(),
             operation_type: Default::default(),
             realm_id: Default::default(),
             representation: Default::default(),
@@ -4535,6 +4541,9 @@ impl ::std::default::Default for Confirmation {
 ///      "maximum": 2147483647.0,
 ///      "minimum": -2147483648.0
 ///    },
+///    "federationLink": {
+///      "type": "string"
+///    },
 ///    "hashIterations": {
 ///      "type": "integer",
 ///      "format": "int32",
@@ -4606,6 +4615,12 @@ pub struct CredentialRepresentation {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub digits: ::std::option::Option<i32>,
     #[serde(
+        rename = "federationLink",
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub federation_link: ::std::option::Option<::std::string::String>,
+    #[serde(
         rename = "hashIterations",
         default,
         skip_serializing_if = "::std::option::Option::is_none"
@@ -4663,6 +4678,7 @@ impl ::std::default::Default for CredentialRepresentation {
             credential_data: Default::default(),
             device: Default::default(),
             digits: Default::default(),
+            federation_link: Default::default(),
             hash_iterations: Default::default(),
             hashed_salted_value: Default::default(),
             id: Default::default(),
@@ -5248,6 +5264,64 @@ impl ::std::convert::TryFrom<::std::string::String> for EnforcementMode {
         value.parse()
     }
 }
+///ErrorRepresentation
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "errorMessage": {
+///      "type": "string"
+///    },
+///    "errors": {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/ErrorRepresentation"
+///      }
+///    },
+///    "field": {
+///      "type": "string"
+///    },
+///    "params": {
+///      "type": "array",
+///      "items": {}
+///    }
+///  }
+///}
+/// ```
+/// </details>
+#[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
+pub struct ErrorRepresentation {
+    #[serde(
+        rename = "errorMessage",
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub error_message: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub errors: ::std::vec::Vec<ErrorRepresentation>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub field: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub params: ::std::vec::Vec<::serde_json::Value>,
+}
+impl ::std::convert::From<&ErrorRepresentation> for ErrorRepresentation {
+    fn from(value: &ErrorRepresentation) -> Self {
+        value.clone()
+    }
+}
+impl ::std::default::Default for ErrorRepresentation {
+    fn default() -> Self {
+        Self {
+            error_message: Default::default(),
+            errors: Default::default(),
+            field: Default::default(),
+            params: Default::default(),
+        }
+    }
+}
 ///EvaluationResultRepresentation
 ///
 /// <details><summary>JSON schema</summary>
@@ -5260,13 +5334,22 @@ impl ::std::convert::TryFrom<::std::string::String> for EnforcementMode {
 ///      "type": "array",
 ///      "items": {
 ///        "$ref": "#/$defs/ScopeRepresentation"
-///      }
+///      },
+///      "uniqueItems": true
+///    },
+///    "deniedScopes": {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/ScopeRepresentation"
+///      },
+///      "uniqueItems": true
 ///    },
 ///    "policies": {
 ///      "type": "array",
 ///      "items": {
 ///        "$ref": "#/$defs/PolicyResultRepresentation"
-///      }
+///      },
+///      "uniqueItems": true
 ///    },
 ///    "resource": {
 ///      "$ref": "#/$defs/ResourceRepresentation"
@@ -5289,11 +5372,17 @@ pub struct EvaluationResultRepresentation {
     #[serde(
         rename = "allowedScopes",
         default,
-        skip_serializing_if = "::std::vec::Vec::is_empty"
+        skip_serializing_if = "::std::option::Option::is_none"
     )]
-    pub allowed_scopes: ::std::vec::Vec<ScopeRepresentation>,
-    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
-    pub policies: ::std::vec::Vec<PolicyResultRepresentation>,
+    pub allowed_scopes: ::std::option::Option<Vec<ScopeRepresentation>>,
+    #[serde(
+        rename = "deniedScopes",
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub denied_scopes: ::std::option::Option<Vec<ScopeRepresentation>>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub policies: ::std::option::Option<Vec<PolicyResultRepresentation>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub resource: ::std::option::Option<ResourceRepresentation>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
@@ -5311,6 +5400,7 @@ impl ::std::default::Default for EvaluationResultRepresentation {
     fn default() -> Self {
         Self {
             allowed_scopes: Default::default(),
+            denied_scopes: Default::default(),
             policies: Default::default(),
             resource: Default::default(),
             scopes: Default::default(),
@@ -5336,6 +5426,9 @@ impl ::std::default::Default for EvaluationResultRepresentation {
 ///      }
 ///    },
 ///    "error": {
+///      "type": "string"
+///    },
+///    "id": {
 ///      "type": "string"
 ///    },
 ///    "ipAddress": {
@@ -5381,6 +5474,8 @@ pub struct EventRepresentation {
     >,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub error: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub id: ::std::option::Option<::std::string::String>,
     #[serde(
         rename = "ipAddress",
         default,
@@ -5425,6 +5520,7 @@ impl ::std::default::Default for EventRepresentation {
             client_id: Default::default(),
             details: Default::default(),
             error: Default::default(),
+            id: Default::default(),
             ip_address: Default::default(),
             realm_id: Default::default(),
             session_id: Default::default(),
@@ -8794,6 +8890,9 @@ impl ::std::default::Default for PolicyEnforcerConfig {
 ///    "entitlements": {
 ///      "type": "boolean"
 ///    },
+///    "resourceType": {
+///      "type": "string"
+///    },
 ///    "resources": {
 ///      "type": "array",
 ///      "items": {
@@ -8831,6 +8930,12 @@ pub struct PolicyEvaluationRequest {
     >,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub entitlements: ::std::option::Option<bool>,
+    #[serde(
+        rename = "resourceType",
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub resource_type: ::std::option::Option<::std::string::String>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub resources: ::std::vec::Vec<ResourceRepresentation>,
     #[serde(
@@ -8857,6 +8962,7 @@ impl ::std::default::Default for PolicyEvaluationRequest {
             client_id: Default::default(),
             context: Default::default(),
             entitlements: Default::default(),
+            resource_type: Default::default(),
             resources: Default::default(),
             role_ids: Default::default(),
             user_id: Default::default(),
@@ -9141,6 +9247,9 @@ impl ::std::default::Default for PolicyRepresentation {
 ///    "policy": {
 ///      "$ref": "#/$defs/PolicyRepresentation"
 ///    },
+///    "resourceType": {
+///      "type": "string"
+///    },
 ///    "scopes": {
 ///      "type": "array",
 ///      "items": {
@@ -9165,6 +9274,12 @@ pub struct PolicyResultRepresentation {
     pub associated_policies: ::std::vec::Vec<PolicyResultRepresentation>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub policy: ::std::option::Option<PolicyRepresentation>,
+    #[serde(
+        rename = "resourceType",
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub resource_type: ::std::option::Option<::std::string::String>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub scopes: ::std::option::Option<Vec<::std::string::String>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -9180,6 +9295,7 @@ impl ::std::default::Default for PolicyResultRepresentation {
         Self {
             associated_policies: Default::default(),
             policy: Default::default(),
+            resource_type: Default::default(),
             scopes: Default::default(),
             status: Default::default(),
         }
@@ -12768,6 +12884,19 @@ impl ::std::default::Default for ResourceServerRepresentation {
 ///{
 ///  "type": "object",
 ///  "properties": {
+///    "groupType": {
+///      "type": "string"
+///    },
+///    "scopeAliases": {
+///      "type": "object",
+///      "additionalProperties": {
+///        "type": "array",
+///        "items": {
+///          "type": "string"
+///        },
+///        "uniqueItems": true
+///      }
+///    },
 ///    "scopes": {
 ///      "type": "array",
 ///      "items": {
@@ -12784,6 +12913,21 @@ impl ::std::default::Default for ResourceServerRepresentation {
 /// </details>
 #[derive(::schemars::JsonSchema, ::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
 pub struct ResourceType {
+    #[serde(
+        rename = "groupType",
+        default,
+        skip_serializing_if = "::std::option::Option::is_none"
+    )]
+    pub group_type: ::std::option::Option<::std::string::String>,
+    #[serde(
+        rename = "scopeAliases",
+        default,
+        skip_serializing_if = ":: std :: collections :: BTreeMap::is_empty"
+    )]
+    pub scope_aliases: ::std::collections::BTreeMap<
+        ::std::string::String,
+        Vec<::std::string::String>,
+    >,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub scopes: ::std::option::Option<Vec<::std::string::String>>,
     #[serde(
@@ -12801,6 +12945,8 @@ impl ::std::convert::From<&ResourceType> for ResourceType {
 impl ::std::default::Default for ResourceType {
     fn default() -> Self {
         Self {
+            group_type: Default::default(),
+            scope_aliases: Default::default(),
             scopes: Default::default(),
             type_: Default::default(),
         }

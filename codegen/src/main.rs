@@ -162,7 +162,7 @@ fn generate(version: &str) -> Result<(), Box<dyn std::error::Error>> {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opts = Opts::parse();
-    let version = "26.1.1";
+    let version = "26.2.0";
 
     if opts.update {
         update(&version)?;
