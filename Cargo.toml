@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = [ "codegen", "keycloak-client", "keycloak-pathgen", "keycloak-types"]
+members = [ "codegen", "codegen3", "keycloak-client", "keycloak-pathgen", "keycloak-types", "keycloak-types2"]
 
 [workspace.package]
 license = "MIT"
